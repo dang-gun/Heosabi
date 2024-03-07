@@ -5,6 +5,12 @@ VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Heosabi_Framework", "Heosabi_Framework\Heosabi_Framework.esproj", "{14220184-3F58-4F52-8F20-F586E3426148}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Heosabi_AxeView", "Heosabi_AxeView\Heosabi_AxeView.esproj", "{C5E24C7C-11C3-4A84-9598-8D6D361008FD}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Heosabi_Foundation", "Heosabi_Foundation\Heosabi_Foundation.esproj", "{0C6429B8-93BE-4789-9F91-4C4175B8CAC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OriginalProject", "OriginalProject", "{891C77E9-DAFF-4C0B-9DC8-2F550375D053}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,9 +23,25 @@ Global
 		{14220184-3F58-4F52-8F20-F586E3426148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14220184-3F58-4F52-8F20-F586E3426148}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14220184-3F58-4F52-8F20-F586E3426148}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C5E24C7C-11C3-4A84-9598-8D6D361008FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5E24C7C-11C3-4A84-9598-8D6D361008FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5E24C7C-11C3-4A84-9598-8D6D361008FD}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C5E24C7C-11C3-4A84-9598-8D6D361008FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5E24C7C-11C3-4A84-9598-8D6D361008FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5E24C7C-11C3-4A84-9598-8D6D361008FD}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0C6429B8-93BE-4789-9F91-4C4175B8CAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C6429B8-93BE-4789-9F91-4C4175B8CAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C6429B8-93BE-4789-9F91-4C4175B8CAC3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0C6429B8-93BE-4789-9F91-4C4175B8CAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C6429B8-93BE-4789-9F91-4C4175B8CAC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C6429B8-93BE-4789-9F91-4C4175B8CAC3}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14220184-3F58-4F52-8F20-F586E3426148} = {891C77E9-DAFF-4C0B-9DC8-2F550375D053}
+		{0C6429B8-93BE-4789-9F91-4C4175B8CAC3} = {891C77E9-DAFF-4C0B-9DC8-2F550375D053}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F19DB0C-7F93-4058-928D-4C4B9237B3C8}

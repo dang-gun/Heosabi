@@ -1,0 +1,38 @@
+{
+  "name": "heosabi_axeview",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --hot",
+    "build": "webpack --progress --profile",
+    "jsdoc": "jsdoc -c jsdoc.conf README.md",
+    "dev": "webpack serve --env development",
+    "prod": "webpack --progress --profile --mode production"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.7",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "docdash": "^2.0.1",
+    "eslint": "^8.21.0",
+    "html-webpack-plugin": "5.5.0",
+    "jsdoc": "^4.0.2",
+    "ts-loader": "^9.4.2",
+    "typescript": "5.1.6",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ]
+  }
+}
