@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "module": "commonjs",
     "target": "es6",
     "lib": [ "es6", "dom" ],
+
+    "paths": {
+      "@/*": [ "src/*" ],
+      "@H_Fnd/*": [ "../Heosabi_Foundation/src/Heosabi/*" ]
+    },
     "sourceMap": true
   },
   "exclude": [

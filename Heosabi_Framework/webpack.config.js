@@ -41,7 +41,11 @@ module.exports = (env, argv) =>
         devtool: "inline-source-map",
         //devtool: "inline-source-map",
         resolve: {
-            extensions: [".js", ".ts"]
+            extensions: [".js", ".ts"],
+            alias: {
+                "@": SrcPath,
+                "@H_Fnd": path.resolve("../Heosabi_Foundation/src/Heosabi"),
+            }
         },
         output: {// 최종적으로 만들어질 js
             /** 빌드 위치 */
