@@ -1,8 +1,8 @@
-import Heosabi, { LoggerServeiceInterface } from '@H_Fnd/Heosabi';
+ï»¿import Heosabi, { LoggerServeiceInterface } from '@H_Fnd/Heosabi';
 
 
-/** Çã»çºñ¿ë ·Î°Å */
-export default class DGU_Heosabi_Logger implements LoggerServeiceInterface
+/** í—ˆì‚¬ë¹„ìš© ë¡œê±° */
+export default class Heosabi_LoggerServeice implements LoggerServeiceInterface
 {
     
     public InfoString: string = "LoggerServeice(Empty)";
@@ -14,7 +14,8 @@ export default class DGU_Heosabi_Logger implements LoggerServeiceInterface
             //const stack = new Error().stack;
             //console.log(`Custom Log: ${message}\n${stack}`);
 
-            console.trace(message);
+            //console.trace(message);
+            console.log(message);
         }
     }
     public Info(message: string): void
@@ -56,10 +57,10 @@ export default class DGU_Heosabi_Logger implements LoggerServeiceInterface
 
 
 
-    /** Àü´ŞµÈ ¸Ş½ÃÁö¸¦ Ç¥½ÃÇÒÁö ¿©ºÎ */
+    /** ì „ë‹¬ëœ ë©”ì‹œì§€ë¥¼ í‘œì‹œí• ì§€ ì—¬ë¶€ */
     public ShowIs: boolean = true;
 
-    /** ÄÜ¼ÖÀ» ¸ğµÎ Áö¿î´Ù.  */
+    /** ì½˜ì†”ì„ ëª¨ë‘ ì§€ìš´ë‹¤.  */
     public clear(): void
     {
         console.clear();

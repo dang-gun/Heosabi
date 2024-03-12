@@ -1,9 +1,9 @@
-import { LoggerServeiceInterface } from "./LoggerServeiceInterface";
+ï»¿import { LoggerServeiceInterface } from "./LoggerServeiceInterface";
 
 
 
 
-/** ºñ¾îÀÖ´Â ·Î±× ¼­ºñ½º ÀÎÅÍÆäÀÌ½º */
+/** ë¹„ì–´ìˆëŠ” ë¡œê·¸ ì„œë¹„ìŠ¤ ì¸í„°í˜ì´ìŠ¤ */
 export default class LoggerEmptyServeice implements LoggerServeiceInterface
 {
     public InfoString: string = "LoggerServeice(Empty)";

@@ -43,4 +43,17 @@ export default class ServeiceList
 
 		return this;
 	}
+
+	/**
+	 * 라우터 서비스 등록
+	 * @param routerServeice 등록할 라우터
+	 * @returns
+	 */
+	public AddRouter(routerServeice: RouterServeiceInterface): ServeiceList
+	{
+		this.Router = routerServeice;
+
+		return this;
+	}
+
 }

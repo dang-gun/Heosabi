@@ -1,23 +1,48 @@
+ï»¿import { RouterMatchInfoModel } from "./RouterMatchInfoModel";
 
 
-/** ¶ó¿ìÆ® ¼­ºñ½º ÀÎÅÍÆäÀÌ½º */
+/** ë¼ìš°íŠ¸ ì„œë¹„ìŠ¤ ì¸í„°íŽ˜ì´ìŠ¤ */
 export interface RouterServeiceInterface
 {
 	/** 
-	 * ¼­ºñ½ºÀÇ Ç¥½Ã Á¤º¸(ºñÇÊ¼ö)
-	 * ¼­ºñ½ºÀÇ Á¤º¸¸¦ Ç¥½ÃÇÏ±âÀ§ÇÏ Á¤º¸·Î Á¤º¸°¡ ÇÊ¿äÇÒ¶§ Á¦°øÇÒ ¿ëµµÀÌ´Ù.
+	 * ì„œë¹„ìŠ¤ì˜ í‘œì‹œ ì •ë³´(ë¹„í•„ìˆ˜)
+	 * ì„œë¹„ìŠ¤ì˜ ì •ë³´ë¥¼ í‘œì‹œí•˜ê¸°ìœ„í•˜ ì •ë³´ë¡œ ì •ë³´ê°€ í•„ìš”í• ë•Œ ì œê³µí•  ìš©ë„ì´ë‹¤.
 	 */
 	InfoString: string;
 
 
 	/**
-	 * ¶ó¿ìµåÀÇ µ¿ÀÛÀ» Ãß°¡ÇÑ´Ù.
-	 * @param path ¹ÙÀÎµùÇÒ °æ·Î
+	 * ë¼ìš°ë“œì˜ ë™ìž‘ì„ ì¶”ê°€í•œë‹¤.
+	 * @param path ë°”ì¸ë”©í•  ê²½ë¡œ
 	 * @param handler 
-	 * @returns Ã¼ÀÎ¿¡ »ç¿ëÇÒ ÀÌ °³Ã¼
+	 * @returns ì²´ì¸ì— ì‚¬ìš©í•  ì´ ê°œì²´
 	 */
-	on(path: string | Function | RegExp
-		, handler?: Function)
+	on(path: string | RegExp
+		, handler: RouterMatchInfoHandler)
 		: RouterServeiceInterface;
 
+
+	/**
+	 * Not Found íŽ˜ì´ì§€ë¥¼ ì¶”ê°€í•œë‹¤.
+	 * @param handler
+	 * @returns
+	 */
+	notFound(handler?: RouterMatchInfoHandler): RouterServeiceInterface;
+
+	/**
+	 * ë¼ìš°íŒ…ì„ ì‹œìž‘í•œë‹¤.
+	 * @param path
+	 * @param resolveOptions
+	 */
+	resolve(): RouterServeiceInterface;
+
+	/**
+	 * í˜„ìž¬ ì£¼ì†Œì°½ì˜ urlì„ ë³€ê²½í•´ì£¼ëŠ” í•¨ìˆ˜ì´ë‹¤.
+	 * @param to
+	 * @param options
+	 */
+	navigate(to: string);
 }
+
+/** ë¼ìš°íŠ¸ê°€ ë§¤ì¹˜ë ë•Œ ì‹¤í–‰ë  í•¸ë“¤ì„ ìœ„í•œ êµ¬ì¡° */
+export type RouterMatchInfoHandler = (matchInfo?: RouterMatchInfoModel) => void

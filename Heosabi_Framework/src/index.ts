@@ -1,5 +1,12 @@
 ﻿import GlobalHFnd from '@/Global/GlobalHFnd';
-import DGU_Heosabi_Logger from '../Utility/DGU_Heosabi_Logger';
+import Heosabi_LoggerServeice from './Faculty/Serveice/Heosabi_LoggerServeice';
+import Heosabi_RouterHashServeice from './Faculty/Serveice/Heosabi_RouterHashServeice';
+
+import Home from './Pages/Home';
+import About from './Pages/About';
+import MyPage from './Pages/MyPage';
+import NotFound from './Pages/NotFound';
+import GlobalHFw from './Global/GlobalHFw';
 
 /**
  * 프로그램 진입점
@@ -16,8 +23,7 @@ export default class App
 	constructor()
 	{
 		//메인 찾기
-		let divMain = document.getElementById("divMain");
-		divMain.innerHTML = "Test";
+		GlobalHFw.MainDom = document.getElementById("divMain");
 
 
 		//서비스 등록 *************
@@ -25,9 +31,50 @@ export default class App
 
 		//로거
 		GlobalHFnd.Heosabi.Srv.AddLogger(
-			new DGU_Heosabi_Logger());
+			new Heosabi_LoggerServeice());
 
-		GlobalHFnd.Heosabi.Srv.Logger.Log("테스트 로거");
+		GlobalHFnd.Logger.Log("테스트 로거");
+
+
+		//라우터
+		GlobalHFnd.Heosabi.Srv.AddRouter(
+			new Heosabi_RouterHashServeice());
+
+		GlobalHFnd.Router.on("/", (match) =>
+		{
+			const home = new Home();
+		})
+			.on('/about', (match) =>
+			{
+				const about = new About();
+				console.log(match);
+			})
+			.on('/about', (match) =>
+			{
+				const about = new About();
+				console.log(match);
+			})
+			.on('/about/:userId', (match) =>
+			{
+				const about = new About({
+					userId: match.params.get('userId'),
+				});
+				console.log(match);
+			})
+			.on('/user/:userId/:name', (match) =>
+			{
+				const mypage = new MyPage({
+					userId: match.params.get('userId'),
+					name: match.params.get('name'),
+				});
+				console.log(match);
+			})
+			.notFound((match) =>
+			{
+				const notfound = new NotFound();
+				console.log(match);
+			})
+			.resolve();
 	}
 
 }
