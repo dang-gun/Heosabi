@@ -1,5 +1,5 @@
 /**
- *  컨탠츠 타입.
+ *  컨텐츠 받을때 타입.
  *  여기에 정의되지 않은 타입은 처리가 없다.
  * */
 export declare const enum AjaxCallContentGetType {

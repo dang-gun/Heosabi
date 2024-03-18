@@ -25,6 +25,8 @@ let OutputPath_relative = path.resolve("/", OutputFolder);
 
 module.exports = (env, argv) =>
 {
+    console.log("=>    " + path.resolve(SrcPath, "**/*.html"));
+
     //릴리즈(프로덕션)인지 여부
     const EnvPrductionIs = argv.mode === "production";
     if (true === EnvPrductionIs)
@@ -45,6 +47,7 @@ module.exports = (env, argv) =>
             alias: {
                 "@": SrcPath,
                 "@H_Fnd": path.resolve("../Heosabi_Foundation/src/Heosabi"),
+                "@Util": path.resolve(SrcPath, "Utility"),
             }
         },
         output: {// 최종적으로 만들어질 js
@@ -81,6 +84,8 @@ module.exports = (env, argv) =>
                 patterns: [
                     {
                         //모든 html파일 복사
+                        //from: path.resolve(SrcPath, "**/*.html"),
+                        //from: path.resolve(SrcPath) + "/**/*.html",
                         from: "./src/**/*.html",
                         to({ context, absoluteFilename })
                         {
@@ -92,7 +97,7 @@ module.exports = (env, argv) =>
                                 //sOutDir = "index_Temp.html";
                                 sOutDir = "";
                             }
-                            //console.log("sOutDir : " + sOutDir);
+                            console.log("sOutDir : " + sOutDir);
                             return `${sOutDir}`;
                         },
                     },

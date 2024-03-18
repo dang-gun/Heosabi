@@ -11,4 +11,7 @@ export default class GlobalHFw
     /** 메인으로 사용할 돔 */
     public static MainDom: HTMLElement;
 
+    /** 메뉴로 사용할 돔 */
+    public static MenuDom: null | HTMLElement = null;
+
 }

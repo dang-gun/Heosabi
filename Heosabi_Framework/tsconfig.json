@@ -7,7 +7,8 @@
 
     "paths": {
       "@/*": [ "src/*" ],
-      "@H_Fnd/*": [ "../Heosabi_Foundation/src/Heosabi/*" ]
+      "@H_Fnd/*": [ "../Heosabi_Foundation/src/Heosabi/*" ],
+      "@Util/*": [ "src/Utility/*" ]
     },
     "sourceMap": true
   },

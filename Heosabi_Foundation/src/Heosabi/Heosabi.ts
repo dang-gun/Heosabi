@@ -11,6 +11,10 @@ export * from "./Serveice/RouterServeice/RouterMatchInfoModel";
 export * from "./Serveice/RouterServeice/RouterServeiceInterface";
 import RouterEmptyServeice from "./Serveice/RouterServeice/RouterEmptyServeice";
 
+import { AjaxServeiceInterface } from "./Serveice/AjaxServeice/AjaxServeiceInterface";
+export * from "./Serveice/AjaxServeice/AjaxServeiceInterface";
+export * from "./Serveice/AjaxServeice/AjaxCallModel";
+import AjaxEmptyServeice from "./Serveice/AjaxServeice/AjaxEmptyServeice";
 
 
 /** 허사비 파운데이션 */

@@ -1,7 +1,12 @@
 ﻿import { LoggerServeiceInterface } from "./LogServeice/LoggerServeiceInterface";
 import LoggerEmptyServeice from "./LogServeice/LoggerEmptyServeice";
 
+import { AjaxServeiceInterface } from "./AjaxServeice/AjaxServeiceInterface";
+import AjaxEmptyServeice from "./AjaxServeice/AjaxEmptyServeice";
+
 import { RouterServeiceInterface } from "./RouterServeice/RouterServeiceInterface";
+import RouterEmptyServeice from "./RouterServeice/RouterEmptyServeice";
+
 
 
 
@@ -15,6 +20,8 @@ export default class ServeiceList
 	/** 로거 */
 	public Logger: LoggerServeiceInterface;
 
+	/** 아작스 지원 */
+	public Ajax: AjaxServeiceInterface;
 
 	/** URL 라우터 */
 	public Router: RouterServeiceInterface;
@@ -29,6 +36,11 @@ export default class ServeiceList
 		//로거
 		this.Logger = new LoggerEmptyServeice();
 
+		//아작스
+		this.Ajax = new AjaxEmptyServeice();
+
+		//라우터
+		this.Router = new RouterEmptyServeice();
 	}
 
 
@@ -40,6 +52,18 @@ export default class ServeiceList
 	public AddLogger(loggerServeice: LoggerServeiceInterface): ServeiceList
 	{
 		this.Logger = loggerServeice;
+
+		return this;
+	}
+
+	/**
+	 * 아작스 서비스 등록
+	 * @param loggerServeice 등록할 로거
+	 * @returns
+	 */
+	public AddAjax(ajaxServeice: AjaxServeiceInterface): ServeiceList
+	{
+		this.Ajax = ajaxServeice;
 
 		return this;
 	}

@@ -1,4 +1,4 @@
-import Heosabi, { LoggerServeiceInterface, RouterServeiceInterface } from '@H_Fnd/Heosabi';
+import Heosabi, { AjaxServeiceInterface, LoggerServeiceInterface, RouterServeiceInterface } from '@H_Fnd/Heosabi';
 
 
 
@@ -22,6 +22,14 @@ export default class GlobalHFnd
         return GlobalHFnd.Heosabi.Srv.Logger;
     }
 
+    /**
+     * 아작스
+     * 바로가기이므로 생성은 GlobalHFnd.Heosabi.Srv.AddAjax로 해야 한다.
+     */
+    public static get Ajax(): AjaxServeiceInterface
+    {
+        return GlobalHFnd.Heosabi.Srv.Ajax;
+    }
 
     /**
      * 라우터

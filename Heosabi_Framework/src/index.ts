@@ -29,14 +29,18 @@ export default class App
 		//서비스 등록 *************
 		console.log(GlobalHFnd.Title);
 
-		//로거
+		//로거 ***
 		GlobalHFnd.Heosabi.Srv.AddLogger(
 			new Heosabi_LoggerServeice());
 
 		GlobalHFnd.Logger.Log("테스트 로거");
 
 
-		//라우터
+		//아작스 지원 ***
+		GlobalHFnd.Ajax.fileHtml(false, "/")
+
+
+		//라우터 ***
 		GlobalHFnd.Heosabi.Srv.AddRouter(
 			new Heosabi_JxtaHashRouterServeice());
 
