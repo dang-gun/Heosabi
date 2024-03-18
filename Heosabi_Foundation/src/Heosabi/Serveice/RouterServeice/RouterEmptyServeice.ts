@@ -24,6 +24,4 @@ export default class RouterEmptyServeice implements RouterServeiceInterface
         throw new Error("Method not implemented.");
     }
     
-
-    
 }

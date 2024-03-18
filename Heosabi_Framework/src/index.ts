@@ -1,6 +1,6 @@
 ﻿import GlobalHFnd from '@/Global/GlobalHFnd';
 import Heosabi_LoggerServeice from './Faculty/Serveice/Heosabi_LoggerServeice';
-import Heosabi_RouterHashServeice from './Faculty/Serveice/Heosabi_RouterHashServeice';
+import Heosabi_JxtaHashRouterServeice from './Faculty/Serveice/Heosabi_RouterHashServeice';
 
 import Home from './Pages/Home';
 import About from './Pages/About';
@@ -38,7 +38,7 @@ export default class App
 
 		//라우터
 		GlobalHFnd.Heosabi.Srv.AddRouter(
-			new Heosabi_RouterHashServeice());
+			new Heosabi_JxtaHashRouterServeice());
 
 		GlobalHFnd.Router.on("/", (match) =>
 		{

@@ -1,7 +1,10 @@
 ﻿import Heosabi, { LoggerServeiceInterface } from '@H_Fnd/Heosabi';
 
 
-/** 허사비용 로거 */
+/** 
+ * 허사비용 로거 
+ * 별도의 라이브러리를 사용하지 않고 직접 구현함.
+ */
 export default class Heosabi_LoggerServeice implements LoggerServeiceInterface
 {
     

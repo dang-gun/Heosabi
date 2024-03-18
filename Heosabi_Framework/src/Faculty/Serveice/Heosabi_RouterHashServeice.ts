@@ -5,7 +5,7 @@
 } from '@H_Fnd/Heosabi';
 
 /**
- * jxta-hash-router라우터를 이용한 라우터(해시)
+ * jxta-hash-router를 이용한 라우터(해시)
  * https://github.com/whoiseon/jxta-hash-router
  */
 import JxtaHashRouter, {
@@ -13,8 +13,12 @@ import JxtaHashRouter, {
 import { Handler, Match } from '@//Utility/JxtaHashRouter/types';
 
 
-/** 허사비용 라우터(해시) 서비스 */
-export default class Heosabi_RouterHashServeice implements RouterServeiceInterface
+/** 
+ * 허사비용 라우터(해시) 서비스 
+ * jxta-hash-router를 이용한 해시 라우터
+ */
+export default class Heosabi_JxtaHashRouterServeice
+    implements RouterServeiceInterface
 {
     InfoString: string = "Heosabi Router(Hash) Serveice" ;
 
@@ -36,7 +40,7 @@ export default class Heosabi_RouterHashServeice implements RouterServeiceInterfa
      */
     public on(path: string | RegExp
         , handler: RouterMatchInfoHandler)
-        : Heosabi_RouterHashServeice
+        : Heosabi_JxtaHashRouterServeice
     {
 
         //새로만든 핸들 전달
