@@ -4,10 +4,10 @@ export default class MyPage
 {
     constructor(props?: any)
     {
-        if (GlobalHFw.MainDom)
+        if (GlobalHFw.AppDom)
         {
-            GlobalHFw.MainDom.innerHTML = '';
-            GlobalHFw.MainDom.innerHTML = this.render();
+            GlobalHFw.AppDom.innerHTML = '';
+            GlobalHFw.AppDom.innerHTML = this.render();
         }
 
         if (props)

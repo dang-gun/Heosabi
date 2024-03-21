@@ -114,4 +114,10 @@ export default class Heosabi_JxtaHashRouterServeice
 
         return handlerNew;
     }
+
+
+    public refresh(): void
+    {
+        this.router.refresh();
+    }
 }

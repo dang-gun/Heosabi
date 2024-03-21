@@ -1,20 +1,10 @@
-import GlobalHFw from "../Global/GlobalHFw";
+import GlobalHFw from '@/Global/GlobalHFw';
 
 export default class About
 {
     constructor(props?: any)
     {
         
-        if (GlobalHFw.MainDom)
-        {
-            GlobalHFw.MainDom.innerHTML = '';
-            GlobalHFw.MainDom.innerHTML = this.render();
-        }
-
-        if (props)
-        {
-            console.log(props);
-        }
     }
 
     public render(): string

@@ -1,12 +1,20 @@
 ﻿import GlobalHFnd from '@/Global/GlobalHFnd';
 import Heosabi_LoggerServeice from './Faculty/Serveice/Heosabi_LoggerServeice';
+import Heosabi_AjaxAssist2Serveice from './Faculty/Serveice/Heosabi_AjaxAssist2Serveice';
 import Heosabi_JxtaHashRouterServeice from './Faculty/Serveice/Heosabi_RouterHashServeice';
 
-import Home from './Pages/Home';
-import About from './Pages/About';
-import MyPage from './Pages/MyPage';
-import NotFound from './Pages/NotFound';
-import GlobalHFw from './Global/GlobalHFw';
+import GlobalHFw from '@/Global/GlobalHFw';
+
+
+import StartupPage from '@Pages//StartupPage';
+import Home from '@Pages/Home/Home';
+import RouterTest from '@Pages/ServeiceTest/RouterTest/RouterTest';
+import NotFound from '@Pages/NotFound';
+
+
+import DGU_AjaxAssist2 from '@Util/DGU_AjaxAssist2/DGU_AjaxAssist2';
+
+
 
 /**
  * 프로그램 진입점
@@ -17,70 +25,84 @@ import GlobalHFw from './Global/GlobalHFw';
  */
 export default class App
 {
-	/** 지금 보여주고 있는 페이지에서 사용할 개체 */
-	public PageNow: any = null;
-
+	
+	/** 프로그램 진입점 */
 	constructor()
+	{	
+		this.initialize();	
+	}
+
+	/** 동기/비동기를 제어하기 위한 비동기 초기화 함수 */
+	initialize = async () =>
 	{
-		//메인 찾기
-		GlobalHFw.MainDom = document.getElementById("divMain");
+		//사용할 영역 찾기
+		GlobalHFw.AppDom = document.getElementById("divApp");
 
 
-		//서비스 등록 *************
+
+		//#region 서비스 등록 **************
+		//모든 서비스는 여기에서 등록한다.
 		console.log(GlobalHFnd.Title);
 
 		//로거 ***
 		GlobalHFnd.Heosabi.Srv.AddLogger(
 			new Heosabi_LoggerServeice());
-
 		GlobalHFnd.Logger.Log("테스트 로거");
 
 
 		//아작스 지원 ***
-		GlobalHFnd.Ajax.fileHtml(false, "/")
+		GlobalHFnd.Heosabi.Srv.AddAjax(new Heosabi_AjaxAssist2Serveice());
 
 
 		//라우터 ***
 		GlobalHFnd.Heosabi.Srv.AddRouter(
 			new Heosabi_JxtaHashRouterServeice());
 
+		//#endregion
+
+		
+		//메인 페이지 생성 **********
+		GlobalHFw.StartupPage = new StartupPage();
+		await GlobalHFw.StartupPage.initialize();
+
+		
+		//#region 라우팅 정보 등록 ***
 		GlobalHFnd.Router.on("/", (match) =>
 		{
-			const home = new Home();
+			GlobalHFw.StartupPage.PageSet(new Home());
 		})
-			.on('/about', (match) =>
+			.on('/home', (match) =>
 			{
-				const about = new About();
-				console.log(match);
+				GlobalHFw.StartupPage.PageSet(new Home());
 			})
-			.on('/about', (match) =>
+			.on('/test/router', (match) =>
 			{
-				const about = new About();
-				console.log(match);
+				GlobalHFw.StartupPage.PageSet(new RouterTest());
 			})
-			.on('/about/:userId', (match) =>
+			.on('/test/router/:userId', (match) =>
 			{
-				const about = new About({
+				GlobalHFw.StartupPage.PageSet(new RouterTest({
 					userId: match.params.get('userId'),
-				});
-				console.log(match);
+				}));
 			})
-			.on('/user/:userId/:name', (match) =>
+			.on('/test/router/:userId/:name', (match) =>
 			{
-				const mypage = new MyPage({
+				GlobalHFw.StartupPage.PageSet(new RouterTest({
 					userId: match.params.get('userId'),
 					name: match.params.get('name'),
-				});
-				console.log(match);
+				}));
 			})
 			.notFound((match) =>
 			{
-				const notfound = new NotFound();
-				console.log(match);
+				GlobalHFw.StartupPage.PageSet(new NotFound());
 			})
 			.resolve();
-	}
+		//#endregion
 
+
+		//홈으로 이동
+		GlobalHFnd.Router.refresh();
+	};
 }
 
 (window as any).app = new App();

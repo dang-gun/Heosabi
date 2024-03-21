@@ -42,6 +42,9 @@ export interface RouterServeiceInterface
 	 * @param options
 	 */
 	navigate(to: string);
+
+	/** 라우터를 새로고침합니다. */
+	refresh?(): void;
 }
 
 /** 라우트가 매치될때 실행될 핸들을 위한 구조 */

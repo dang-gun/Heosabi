@@ -3,7 +3,7 @@ import { Match, Routes, Handler } from './types';
 export default class JxtaHashRouter
 {
   /** 기본 라우트 */
-  private root: string;
+  private root: string = "/";
   /** 등록된 라우트 배열 */
   private routes: Routes;
   /** 현재 사용자가 보고있는 라우트 */
@@ -70,10 +70,13 @@ export default class JxtaHashRouter
    */
   public resolve(): void
   {
+
+      console.log('resolve');
+
     /** DOMContentLoaded (페이지 로드 시) 이벤트가 발생하면 라우트를 해석한다. */
     window.addEventListener('DOMContentLoaded', (): void =>
     {
-      console.log('DOMContentLoaded');
+      //console.log('DOMContentLoaded');
       this.routeManager();
     });
 
@@ -120,7 +123,7 @@ export default class JxtaHashRouter
    * match 객체에 할당한다.
    * @returns {void}
    */
-  private routeManager(): void
+    private routeManager(): void
   {
     /** 현재 주소 */
     const currentPath = this.getPath;
@@ -179,7 +182,7 @@ export default class JxtaHashRouter
 
     if (window.location.hash === '')
     {
-      window.location.hash = this.root;
+        window.location.hash = this.root;
     }
   }
 

@@ -1,35 +1,18 @@
-import GlobalHFw from "../Global/GlobalHFw";
+import GlobalHFw from '@/Global/GlobalHFw';
+import PageBase from '@Faculty/PageBase';
 
-export default class NotFound
+export default class NotFound implements PageBase
 {
-    constructor(props?: any)
+    constructor()
     {
-        
-        if (GlobalHFw.MainDom)
-        {
-            GlobalHFw.MainDom.innerHTML = '';
-            GlobalHFw.MainDom.innerHTML = this.render();
-        }
-
-        if (props)
-        {
-            console.log(props);
-        }
     }
 
-    public render(): string
+    public async render(): Promise<void>
     {
-        return `
+        GlobalHFw.StartupPage.MainDom.innerHTML = `
           <div>
               <h1>404 - Error</h1>
               <p>페이지를 찾을 수 없습니다.</p>
-          <div>
-              <a href="#/">home</a>
-              <a href="#/about">about</a>
-              <a href="#/about/1">user</a>
-              <a href="#/user/1/hello">mypage</a>
-              <a href="#/awefwaefwe">notFound</a>
-          </div>
           </div>
       `;
     }

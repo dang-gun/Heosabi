@@ -51,7 +51,7 @@ export declare class AjaxCallOptionModel {
      * @param data 성공해서 받은 데이터를 ContentGetType에 맞게 가공한 데이터
      * @param response 요청이 전달한 리스폰스
      */
-    success?: (data: null | Response | ArrayBuffer | string | any, response: Response) => void;
+    success?: ((data: null | Response | ArrayBuffer | string | any, response: Response) => void) | null;
     /**
      *  아작스 요청이 실패했을 때 호출될 함수
      *
@@ -59,5 +59,5 @@ export declare class AjaxCallOptionModel {
      * (response: Response): void => { };
      * @param response 요청이 전달한 리스폰스
      */
-    error?: (response: Response) => void;
+    error?: ((response: Response) => void) | null;
 }

@@ -25,8 +25,6 @@ let OutputPath_relative = path.resolve("/", OutputFolder);
 
 module.exports = (env, argv) =>
 {
-    console.log("=>    " + path.resolve(SrcPath, "**/*.html"));
-
     //릴리즈(프로덕션)인지 여부
     const EnvPrductionIs = argv.mode === "production";
     if (true === EnvPrductionIs)
@@ -47,7 +45,11 @@ module.exports = (env, argv) =>
             alias: {
                 "@": SrcPath,
                 "@H_Fnd": path.resolve("../Heosabi_Foundation/src/Heosabi"),
+
+                "@Faculty": path.resolve(SrcPath, "Faculty"),
+                "@Pages": path.resolve(SrcPath, "Pages"),
                 "@Util": path.resolve(SrcPath, "Utility"),
+                
             }
         },
         output: {// 최종적으로 만들어질 js

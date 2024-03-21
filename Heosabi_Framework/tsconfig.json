@@ -2,12 +2,17 @@
   "compilerOptions": {
     "baseUrl": "./",
     "module": "commonjs",
+    "esModuleInterop": true,
+
     "target": "es6",
     "lib": [ "es6", "dom" ],
 
     "paths": {
       "@/*": [ "src/*" ],
       "@H_Fnd/*": [ "../Heosabi_Foundation/src/Heosabi/*" ],
+
+      "@Faculty/*": [ "src/Faculty/*" ],
+      "@Pages/*": [ "src/Pages/*" ],
       "@Util/*": [ "src/Utility/*" ]
     },
     "sourceMap": true

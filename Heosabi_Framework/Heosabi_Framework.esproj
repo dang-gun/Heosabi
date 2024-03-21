@@ -2,4 +2,7 @@
   <PropertyGroup>
     <StartupCommand>npm run dev</StartupCommand>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+  </ItemGroup>
 </Project>
