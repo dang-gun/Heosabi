@@ -1,11 +1,11 @@
 ﻿import { LoggerServeiceInterface } from "./LogServeice/LoggerServeiceInterface";
-import LoggerEmptyServeice from "./LogServeice/LoggerEmptyServeice";
+import { LoggerEmptyServeice } from "./LogServeice/LoggerEmptyServeice";
 
 import { AjaxServeiceInterface } from "./AjaxServeice/AjaxServeiceInterface";
-import AjaxEmptyServeice from "./AjaxServeice/AjaxEmptyServeice";
+import { AjaxEmptyServeice } from "./AjaxServeice/AjaxEmptyServeice";
 
 import { RouterServeiceInterface } from "./RouterServeice/RouterServeiceInterface";
-import RouterEmptyServeice from "./RouterServeice/RouterEmptyServeice";
+import { RouterEmptyServeice } from "./RouterServeice/RouterEmptyServeice";
 
 
 
@@ -15,7 +15,7 @@ import RouterEmptyServeice from "./RouterServeice/RouterEmptyServeice";
  * 서비스는 생성되어있다는 가정하에 사용할 수 있도록 
  * 비어있는(Empty) 서비스를 인터페이스와 페어로 만들어져 있다.
  */
-export default class ServeiceList
+export class ServeiceList
 {
 	/** 로거 */
 	public Logger: LoggerServeiceInterface;

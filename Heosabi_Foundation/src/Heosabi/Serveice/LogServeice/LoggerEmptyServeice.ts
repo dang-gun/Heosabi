@@ -4,7 +4,7 @@
 
 
 /** 비어있는 로그 서비스 인터페이스 */
-export default class LoggerEmptyServeice implements LoggerServeiceInterface
+export class LoggerEmptyServeice implements LoggerServeiceInterface
 {
     public InfoString: string = "LoggerServeice(Empty)";
 
