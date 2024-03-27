@@ -1,13 +1,16 @@
-import GlobalHFw from '@/Global/GlobalHFw';
-import PageBase from '@Faculty/PageBase';
+import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 
-export default class NotFound implements PageBase
+import GlobalHFw from '@/Global/GlobalHFw';
+
+
+export default class NotFound extends hsbSceneComponent
 {
     constructor()
     {
+        super();
     }
 
-    public async render(): Promise<void>
+    public render = async (): Promise<void> =>
     {
         GlobalHFw.StartupPage.MainDom.innerHTML = `
           <div>

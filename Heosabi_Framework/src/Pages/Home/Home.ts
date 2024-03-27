@@ -1,7 +1,7 @@
 import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 
 import GlobalHFw from '@/Global/GlobalHFw';
-import PageBase from '@Faculty/PageBase';
+
 
 export default class Home extends hsbSceneComponent
 {
@@ -16,7 +16,7 @@ export default class Home extends hsbSceneComponent
     {
     };
 
-    public async render(): Promise<void>
+    public render = async (): Promise<void> =>
     {
         GlobalHFw.StartupPage.MainDom.innerHTML = `
         <div>

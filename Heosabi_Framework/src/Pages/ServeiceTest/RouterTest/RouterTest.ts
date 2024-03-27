@@ -1,13 +1,16 @@
-import GlobalHFw from '@/Global/GlobalHFw';
-import PageBase from '@Faculty/PageBase';
+import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 
-export default class RouterTest implements PageBase
+import GlobalHFw from '@/Global/GlobalHFw';
+
+export default class RouterTest extends hsbSceneComponent
 {
     private userId: string = "";
     private name: string = "";
 
     constructor(props?: any)
     {
+        super();
+
         if (props)
         {//데이터가 있다.
 

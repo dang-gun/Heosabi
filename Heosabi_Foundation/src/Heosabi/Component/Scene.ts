@@ -42,6 +42,10 @@ export class Scene
 
 	}
 
+	public render = async (): Promise<void> =>
+	{
+	}
+
 	/**
 	 * 페이지를 화면에 그린다.
 	 * @returns

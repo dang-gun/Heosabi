@@ -3,7 +3,7 @@ import { hsbComponentBehaviour } from '@H_Fnd/Heosabi';
 
 import GlobalHFnd from '@/Global/GlobalHFnd';
 import GlobalHFw from '@/Global/GlobalHFw';
-import PageBase from '@Faculty/PageBase';
+
 
 
 /** 
@@ -26,7 +26,7 @@ export default class NavMain extends hsbComponentBehaviour
         }
     }
 
-    public async render(): Promise<void>
+    public render = async (): Promise<void> =>
     {
         this.NavMainDom.innerHTML = `
 <div>

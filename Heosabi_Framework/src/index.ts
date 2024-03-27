@@ -69,32 +69,32 @@ export default class App
 		//#region 라우팅 정보 등록 ***
 		GlobalHFnd.Router.on("/", (match) =>
 		{
-			GlobalHFw.StartupPage.PageSet(new Home());
+			GlobalHFw.StartupPage.SceneSet(new Home());
 		})
 			.on('/home', (match) =>
 			{
-				GlobalHFw.StartupPage.PageSet(new Home());
+				GlobalHFw.StartupPage.SceneSet(new Home());
 			})
 			.on('/test/router', (match) =>
 			{
-				GlobalHFw.StartupPage.PageSet(new RouterTest());
+				GlobalHFw.StartupPage.SceneSet(new RouterTest());
 			})
 			.on('/test/router/:userId', (match) =>
 			{
-				GlobalHFw.StartupPage.PageSet(new RouterTest({
+				GlobalHFw.StartupPage.SceneSet(new RouterTest({
 					userId: match.params.get('userId'),
 				}));
 			})
 			.on('/test/router/:userId/:name', (match) =>
 			{
-				GlobalHFw.StartupPage.PageSet(new RouterTest({
+				GlobalHFw.StartupPage.SceneSet(new RouterTest({
 					userId: match.params.get('userId'),
 					name: match.params.get('name'),
 				}));
 			})
 			.notFound((match) =>
 			{
-				GlobalHFw.StartupPage.PageSet(new NotFound());
+				GlobalHFw.StartupPage.SceneSet(new NotFound());
 			})
 			.resolve();
 		//#endregion

@@ -3,7 +3,6 @@ import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 
 import GlobalHFnd from '@/Global/GlobalHFnd';
 import GlobalHFw from '@/Global/GlobalHFw';
-import PageBase from '@Faculty/PageBase';
 import NavMain from '@Pages/Startup/NavMain';
 
 
@@ -50,18 +49,18 @@ export default class StartupPage extends hsbSceneComponent
         this.render_FirstAll();
     }
 
-    public async render(): Promise<void>
+    public render = async (): Promise<void> =>
     {
     }
 
     /**
      * 지정한 개체를 지금 페이지로 지정한다.
-     * @param objPage
+     * @param objScene
      */
-    public PageSet(objPage: PageBase): void
+    public SceneSet(objScene: hsbSceneComponent): void
     {
-        GlobalHFw.PageNow = objPage;
-        GlobalHFw.PageNow.render();
+        GlobalHFw.SceneNow = objScene;
+        GlobalHFw.SceneNow.render();
     }
      
 }
