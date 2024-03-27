@@ -71,7 +71,7 @@ export default class JxtaHashRouter
   public resolve(): void
   {
 
-      console.log('resolve');
+      //console.log('resolve');
 
     /** DOMContentLoaded (페이지 로드 시) 이벤트가 발생하면 라우트를 해석한다. */
     window.addEventListener('DOMContentLoaded', (): void =>
@@ -83,7 +83,7 @@ export default class JxtaHashRouter
     /** hashchange (해시값 변경 시) 이벤트가 발생하면 라우트를 해석한다. */
     window.addEventListener('hashchange', (): void =>
     {
-      console.log('hashchange');
+      //console.log('hashchange');
       this.routeManager();
     });
   }

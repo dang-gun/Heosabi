@@ -7,6 +7,8 @@ import { AjaxEmptyServeice } from "./AjaxServeice/AjaxEmptyServeice";
 import { RouterServeiceInterface } from "./RouterServeice/RouterServeiceInterface";
 import { RouterEmptyServeice } from "./RouterServeice/RouterEmptyServeice";
 
+import { hsbComponentCore } from "../Component/HeosabiComponent";
+
 
 
 
@@ -26,6 +28,8 @@ export class ServeiceList
 	/** URL 라우터 */
 	public Router: RouterServeiceInterface;
 
+	/** 컴포넌트 코어 */
+	public ComponentCore: hsbComponentCore;
 
 	constructor()
 	{

@@ -1,10 +1,14 @@
+import { hsbSceneComponent } from '@H_Fnd/Heosabi';
+
 import GlobalHFw from '@/Global/GlobalHFw';
 import PageBase from '@Faculty/PageBase';
 
-export default class Home implements PageBase
+export default class Home extends hsbSceneComponent
 {
     constructor()
     {
+        super();
+
         this.initialize();
     }
 
@@ -14,7 +18,6 @@ export default class Home implements PageBase
 
     public async render(): Promise<void>
     {
-        console.log("홈 바인딩");
         GlobalHFw.StartupPage.MainDom.innerHTML = `
         <div>
             <h1>Home</h1>

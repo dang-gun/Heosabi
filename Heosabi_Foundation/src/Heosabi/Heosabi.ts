@@ -17,9 +17,22 @@ export * from "./Serveice/AjaxServeice/AjaxCallModel";
 import { AjaxEmptyServeice } from "./Serveice/AjaxServeice/AjaxEmptyServeice";
 
 
-/** 허사비 파운데이션 */
+import { Core } from "./Component/Core";
+//외부사용자에게 보여지는 명칭과 내부에서 쓰는 명칭이 다르다.
+export * from "./Component/HeosabiComponent";
+
+
+
+
+/** 
+ * 허사비 파운데이션 
+ * 이 클래스는 싱글톤으로 동작하여 프로젝트에 하나만 존제한다.
+ * */
 export default class Heosabi
 {
+	/** 인스턴스(싱글톤) */
+	public static readonly instance: Heosabi = new Heosabi();
+
 	/** 
 	 * 디버그 모드임을 알림
 	 * 프론트엔드에서의 디버그 용도이므로 보안이 보장되지 않는다.
@@ -46,10 +59,21 @@ export default class Heosabi
 
 	// #endregion
 
+	/** 컴포넌트 코어 */
+	public ComponentCore: Core;
 	
-	constructor()
+	private constructor()
 	{
-
+		//컴포넌트 코어는 재정의가 안되므로 바로 생성한다.
+		this.ComponentCore = new Core();
 	}
 
+	private animate = (): void =>
+	{
+		// 프레임마다 실행할 코드
+		this.ComponentCore.Update();
+
+		// 다음 프레임에서 다시 animate() 함수를 호출
+		requestAnimationFrame(this.animate);
+	};
 }

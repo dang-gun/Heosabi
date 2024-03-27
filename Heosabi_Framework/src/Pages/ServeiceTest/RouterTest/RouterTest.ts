@@ -9,7 +9,7 @@ export default class RouterTest implements PageBase
     constructor(props?: any)
     {
         if (props)
-        {//µ¥ÀÌÅÍ°¡ ÀÖ´Ù.
+        {//ë°ì´í„°ê°€ ìˆë‹¤.
 
             if (props["userId"])
             {

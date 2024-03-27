@@ -1,17 +1,26 @@
+import { hsbSceneComponent } from '@H_Fnd/Heosabi';
+
+
 import GlobalHFnd from '@/Global/GlobalHFnd';
 import GlobalHFw from '@/Global/GlobalHFw';
 import PageBase from '@Faculty/PageBase';
+import NavMain from '@Pages/Startup/NavMain';
+
 
 /** 
  * 프로젝트 메인
  * 라우터는 메인을 걸쳐서 이동해야 한다.
+ * 
+ * 씬 공통 영역은 여기서 컨트롤 되야 한다.
  */
-export default class StartupPage implements PageBase
+export default class StartupPage extends hsbSceneComponent
 {
     public MainDom: HTMLElement | null = null;
 
+    
     constructor(props?: any)
     {
+        super();
         
         if (props)
         {
@@ -29,20 +38,16 @@ export default class StartupPage implements PageBase
             = await GlobalHFnd.Ajax
                 .fileHtml(true, "/Pages/StartupPage.html") as string;
 
-        console.log("메인 돔 찾기");
         //메인 돔 영역 저장
         this.MainDom = GlobalHFw.AppDom.querySelector("#domMain");
 
 
         //네비게이션 메뉴
         let navMain = GlobalHFw.AppDom.querySelector("#navMain");
-        GlobalHFnd.Ajax
-            .fileHtml(false, "/Pages/NavMain/NavMain.html")
-            .then(async (response: Response) =>
-            {
-                navMain.innerHTML = await response.text();
-            });
-            
+        this.AddComponent(new NavMain({ NavMain: navMain }));
+
+
+        this.render_FirstAll();
     }
 
     public async render(): Promise<void>

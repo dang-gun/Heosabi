@@ -1,14 +1,13 @@
-import Heosabi, { AjaxServeiceInterface, LoggerServeiceInterface, RouterServeiceInterface } from '@H_Fnd/Heosabi';
+import Heosabi, { AjaxServeiceInterface, LoggerServeiceInterface, RouterServeiceInterface }
+    from '@H_Fnd/Heosabi';
 
 
 
 /** 허사비 파운데이션 관리용 전역 변수 */
 export default class GlobalHFnd
 {
-    public static Title: string = "Heosabi Framework";
-
     /** 허사비 개체 */
-    public static Heosabi = new Heosabi();
+    public static Heosabi = Heosabi.instance;
 
 
     //#region 사용하기 쉽게 하기위한 서비스 개체 바로가기

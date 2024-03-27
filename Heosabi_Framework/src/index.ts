@@ -42,12 +42,12 @@ export default class App
 
 		//#region 서비스 등록 **************
 		//모든 서비스는 여기에서 등록한다.
-		console.log(GlobalHFnd.Title);
+		//console.log(GlobalHFnd.Title);
 
 		//로거 ***
 		GlobalHFnd.Heosabi.Srv.AddLogger(
 			new Heosabi_LoggerServeice());
-		GlobalHFnd.Logger.Log("테스트 로거");
+		//GlobalHFnd.Logger.Log("테스트 로거");
 
 
 		//아작스 지원 ***
@@ -100,7 +100,7 @@ export default class App
 		//#endregion
 
 
-		//홈으로 이동
+		//주소 새로고침
 		GlobalHFnd.Router.refresh();
 	};
 }
