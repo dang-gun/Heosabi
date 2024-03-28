@@ -6,7 +6,7 @@ import Heosabi_JxtaHashRouterServeice from './Faculty/Serveice/Heosabi_RouterHas
 import GlobalHFw from '@/Global/GlobalHFw';
 
 
-import StartupPage from '@Pages//StartupPage';
+import StartupScene from '@/Pages/StartupScene';
 import Home from '@Pages/Home/Home';
 import RouterTest from '@Pages/ServeiceTest/RouterTest/RouterTest';
 import NotFound from '@Pages/NotFound';
@@ -62,7 +62,7 @@ export default class App
 
 		
 		//메인 페이지 생성 **********
-		GlobalHFw.StartupPage = new StartupPage();
+		GlobalHFw.StartupPage = new StartupScene();
 		await GlobalHFw.StartupPage.initialize();
 
 		

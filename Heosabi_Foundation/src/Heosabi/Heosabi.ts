@@ -66,14 +66,65 @@ export default class Heosabi
 	{
 		//컴포넌트 코어는 재정의가 안되므로 바로 생성한다.
 		this.ComponentCore = new Core();
+
+
+		//프레임 감시 시작
+		this.Tick();
 	}
 
-	private animate = (): void =>
+	private Tick = (): void =>
 	{
 		// 프레임마다 실행할 코드
 		this.ComponentCore.Update();
 
 		// 다음 프레임에서 다시 animate() 함수를 호출
-		requestAnimationFrame(this.animate);
+		requestAnimationFrame(this.Tick);
 	};
+
+
+
+	// #region 허사비 전역에서 사용할 유틸
+
+	/** CreateID에 사용될 카운터 */
+	private IdCount: number = 0;
+	/** CreateID에 사용될 문자열 */
+	private readonly IdString: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	/**
+	 * 겹치지 않는 아이디를 생성한다.
+	 * 
+	 * 100% 겹치지 않지는 않지만 앵간해서 겹치지 않게 구현해야 한다.
+	 * @returns
+	 */
+	public CreateID(): string
+	{
+		let sResult = "";
+		for (let i = 0; i < 8; i++)
+		{
+			sResult += this.IdString.charAt(Math.floor(Math.random() * this.IdString.length));
+		}
+
+		//함수 호출때 마다 1씩 올려준다.
+		++this.IdCount;
+		return sResult + this.IdCount;
+	}
+
+
+	/**
+	 * 지정된 문자열이 URL인지 확인하는 함수
+	 * @param str
+	 * @returns
+	 */
+	public UrlIs(str: string): boolean
+	{
+		try
+		{
+			new URL(str);
+			return true;
+		} catch (err)
+		{
+			return false;
+		}
+	}
+
+	// #endregion
 }

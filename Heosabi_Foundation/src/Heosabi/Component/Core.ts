@@ -1,7 +1,12 @@
-﻿import { LifeCycle } from "./LifeCycle";
-import { LifeCycleInfoModel } from "./LifeCycleInfoModel";
+﻿import Heosabi from "../Heosabi";
+
+
+import { Behaviour } from "./Behaviour";
+import { BehaviourInfoModel } from "./BehaviourInfoModel";
+
 import { Scene } from "./Scene";
 import { SceneInfoModel } from "./SceneInfoModel";
+
 
 /** 
  * 허사비 컴포넌트 - 코어
@@ -13,7 +18,7 @@ export class Core
 	private SceneList: SceneInfoModel[] = [];
 
 	/** 가지고있는 컴포넌트 정보 리스트 */
-	private CompoList: LifeCycleInfoModel[] = [];
+	private CompoList: BehaviourInfoModel[] = [];
 	
 	/**
 	 * 생성자
@@ -37,34 +42,73 @@ export class Core
 	 * 관리할 컴포넌트를 추가한다.
 	 * @param component
 	 */
-	public AddComponent = (component: LifeCycle): void =>
+	public AddComponent = (component: Behaviour): void =>
 	{
-		this.CompoList.push(new LifeCycleInfoModel(component));
+		this.CompoList.push(new BehaviourInfoModel(component));
 	}
 
 	/** 
 	 * 매 프레임마다 호출되는 함수
 	 * 일반적으로 60FPS이다.
 	 */
-	public Update(): void
+	public Update = (): void =>
 	{
-
+		this.Update_Render();
 	}
 
-	public InitializeComplete = (componentThis: LifeCycle): void =>
+	/** 조건이 맞는 컴포넌트의 랜더를 호출한다. */
+	private Update_Render(): void
+	{
+		let listCompo: BehaviourInfoModel[]
+			= this.CompoList.filter(f => f.MyBehaviour.TemplateReadyRenderIs);
+
+		if (0 < listCompo.length)
+		{
+			for (let i = 0; i < listCompo.length; ++i)
+			{
+				listCompo[i].MyBehaviour.onRender();
+			}//end for i
+		}
+		
+	}
+
+	public InitializeComplete = (componentThis: Behaviour): void =>
 	{
 		//일치하는 개체가 있는지 찾는다.
-		let findCompo: LifeCycleInfoModel
+		let findCompo: BehaviourInfoModel
 			= this.CompoList
-				.find(f => f.MyLifeCycle === componentThis);
+				.find(f => f.MyBehaviour === componentThis);
 
 		if (findCompo)
 		{//있다.
 
 			//awake를 호출해 준다.
 			findCompo.AwakeIs = true;
-			findCompo.MyLifeCycle.awake();
+			findCompo.MyBehaviour.onAwake();
 		}
+	}
+
+	/**
+	 * 지정한 파일을 비동기로 다운로드를 시도를 하고 성공한 데이터를 콜백으로 전달한다.
+	 * @param url
+	 * @param callback
+	 * @param callbackError
+	 */
+	public StringDownload(
+		url: string
+		, callback: ((htmlString: string) => void)
+		, callbackError?: (error: any) => void)
+	{
+		Heosabi.instance.Srv.Ajax
+			.fileHtml(false, url)
+			.then(async (response: Response) =>
+			{
+				callback(await response.text());
+			})
+			.catch(error =>
+			{
+				callbackError(error);
+			});
 	}
 	
 }

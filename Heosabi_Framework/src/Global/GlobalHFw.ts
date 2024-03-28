@@ -1,5 +1,5 @@
 import Heosabi, { hsbSceneComponent } from '@H_Fnd/Heosabi';
-import StartupPage from '@/Pages/StartupPage';
+import StartupScene from '@/Pages/StartupScene';
 
 
 
@@ -12,7 +12,7 @@ export default class GlobalHFw
     /** 사용할 전체 영역(DOM) */
     public static AppDom: HTMLElement;
     /** app 바로 아래있는 스타트업페이지 */
-    public static StartupPage: StartupPage;
+    public static StartupPage: StartupScene;
 
     /** 지금 보여주고 있는 페이지에서 사용할 개체 */
     public static SceneNow: hsbSceneComponent | null = null;

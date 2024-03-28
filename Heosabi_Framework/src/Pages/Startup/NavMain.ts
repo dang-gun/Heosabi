@@ -7,28 +7,23 @@ import GlobalHFw from '@/Global/GlobalHFw';
 
 
 /** 
- * 프로젝트 메인
- * 라우터는 메인을 걸쳐서 이동해야 한다.
- * 
- * 페이지의 공통 영역은 여기서 컨트롤 되야 한다.
+ * 네비게이션 메인
  */
 export default class NavMain extends hsbComponentBehaviour
 {
-    private NavMainDom: HTMLElement;
 
     constructor(props?: any)
     {
-        super();
-        
+        //타겟으로 사용할 돔
+        let domNavMain: HTMLElement;
         if (props.NavMain)
         {
-            this.NavMainDom = props.NavMain;
+            domNavMain = props.NavMain;
         }
-    }
 
-    public render = async (): Promise<void> =>
-    {
-        this.NavMainDom.innerHTML = `
+        super({
+            domTarget: props.NavMain,
+            templateString: `
 <div>
     <div>
         <a href="#/">home</a>
@@ -39,12 +34,13 @@ export default class NavMain extends hsbComponentBehaviour
         <a href="#/test/router/1/hello">test router name</a>
     </div>
 </div>
-        `;
+        ` });
+        
     }
 
-    public destroy(): void
+
+    public onDestroy(): void
     {
-        this.NavMainDom = null;
     }
     
      

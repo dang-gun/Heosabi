@@ -1,20 +1,12 @@
 import { hsbComponentBehaviour } from '@H_Fnd/Heosabi';
 
-/** 테스트용 서브 컴포넌트 */
-export default class SubComponent1 extends hsbComponentBehaviour
+export default class SubComponent2 extends hsbComponentBehaviour
 {
     constructor(props?: any)
     {
-        
 
-        super({
-            templateString: `
-<div>
-    컴포넌트 1 - 테스트
-    <h3>테스트~</h3>
-</div>
-`
- });
+
+        super({ templateUrl: "/Pages/ComponentTest/SubComponent2.html" });
 
         //if (props.NavMain)
         //{
@@ -24,6 +16,4 @@ export default class SubComponent1 extends hsbComponentBehaviour
         let a: HTMLElement = document.createElement("div");
         a.querySelector
     }
-
-
 }
