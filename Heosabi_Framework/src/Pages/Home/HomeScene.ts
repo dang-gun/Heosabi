@@ -3,7 +3,7 @@ import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 import GlobalHFw from '@/Global/GlobalHFw';
 
 
-export default class Home extends hsbSceneComponent
+export default class HomeScene extends hsbSceneComponent
 {
     constructor()
     {
@@ -18,7 +18,7 @@ export default class Home extends hsbSceneComponent
 
     public render = async (): Promise<void> =>
     {
-        GlobalHFw.StartupPage.MainDom.innerHTML = `
+        GlobalHFw.StartupPage.getMainDom().innerHTML = `
         <div>
             <h1>Home</h1>
             <div>

@@ -7,7 +7,7 @@ import GlobalHFw from '@/Global/GlobalHFw';
 
 
 import StartupScene from '@/Pages/StartupScene';
-import Home from '@Pages/Home/Home';
+import HomeScene from '@/Pages/Home/HomeScene';
 import RouterTest from '@Pages/ServeiceTest/RouterTest/RouterTest';
 import NotFound from '@Pages/NotFound';
 
@@ -69,11 +69,11 @@ export default class App
 		//#region 라우팅 정보 등록 ***
 		GlobalHFnd.Router.on("/", (match) =>
 		{
-			GlobalHFw.StartupPage.SceneSet(new Home());
+			GlobalHFw.StartupPage.SceneSet(new HomeScene());
 		})
 			.on('/home', (match) =>
 			{
-				GlobalHFw.StartupPage.SceneSet(new Home());
+				GlobalHFw.StartupPage.SceneSet(new HomeScene());
 			})
 			.on('/test/router', (match) =>
 			{

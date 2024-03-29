@@ -21,7 +21,9 @@ export class TemplateCycle extends LifeCycle
 	private SettingData: ComponentSettingModel;
 
 
-	//#region 템플릿 준비 체크 관련
+	//#region 템플릿 준비 체크 관련 **********************
+
+	// *주의!* 겟터/셋터로 구혔되어있는데 this 오염문제 때문에 함수로 변경해야 할 수 있다.
 
 	/** 
 	 * 템플릿이 로드되었는지 여부 - 원본
@@ -102,6 +104,8 @@ export class TemplateCycle extends LifeCycle
 		{
 			this.TemplateRenderReadyIs_ori = false;
 		}
+
+		//Heosabi.instance.Srv.Logger.Info(`◇◇◇ TemplateLoadCompleteIs:${this.TemplateLoadCompleteIs}, TargetIs:${this.TargetIs}, TemplateRenderCompleteIs:${this.TemplateRenderCompleteIs}, TemplateRenderingIs:${this.TemplateRenderingIs},`)
 	}
 
 	//#endregion
@@ -118,6 +122,9 @@ export class TemplateCycle extends LifeCycle
 
 		//템플릿을 불러온다.
 		this.templateLoad();
+
+		//타겟 다시 세팅
+		this.TargetReset();
 	}
 
 	/**
@@ -128,9 +135,13 @@ export class TemplateCycle extends LifeCycle
 	 * 부모가 있다면 부모 기준으로 없으면 전체 기준으로 검색한다.
 	 * querySelector로 검색한다.
 	 */
-	public readonly TargetReset = (target: HTMLElement | string): void =>
+	public readonly TargetReset = (target?: HTMLElement | string): void =>
 	{
-		if (true === (target instanceof HTMLElement))
+		if (!(target))
+		{//전달 개체가 없으면 처리 없음
+
+		}
+		else if (true === (target instanceof HTMLElement))
 		{//HTMLElement이다.
 
 			this.SettingData.domTarget = target as HTMLElement;
@@ -139,6 +150,11 @@ export class TemplateCycle extends LifeCycle
 		{
 			this.SettingData.domTarget
 				= document.querySelector(target as string);
+		}
+
+		if (true === (this.SettingData.domTarget instanceof HTMLElement))
+		{//타겟이 재대로 지정이 됐으면
+			this.TargetIs = true;
 		}
 	}
 
