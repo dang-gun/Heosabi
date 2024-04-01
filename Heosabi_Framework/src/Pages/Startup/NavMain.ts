@@ -1,15 +1,16 @@
-import { hsbComponentBehaviour } from '@H_Fnd/Heosabi';
 
 
 import GlobalHFnd from '@/Global/GlobalHFnd';
 import GlobalHFw from '@/Global/GlobalHFw';
+
+import HFwComponent from '@/Faculty/Component/HFwComponent';
 
 
 
 /** 
  * 네비게이션 메인
  */
-export default class NavMain extends hsbComponentBehaviour
+export default class NavMain extends HFwComponent
 {
 
     constructor(domNavMain: HTMLElement)
@@ -25,6 +26,9 @@ export default class NavMain extends hsbComponentBehaviour
     public onDestroy(): void
     {
     }
+
+    
+
     
      
 }

@@ -42,7 +42,7 @@ export class Behaviour extends TemplateCycle
      * 재정의시 반듯이 'initialize_BaseBehaviour();'를 함수안에서 호출해야 한다.
      * 대부분의 경우 'initialize()'가 끝나는 시점에서 호출하는 것이 좋다.
      */
-    public initialize = async (): Promise<void> =>
+    public async initialize() : Promise<void>
     {
         this.initialize_BaseBehaviour();
     }

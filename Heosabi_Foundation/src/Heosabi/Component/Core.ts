@@ -32,7 +32,7 @@ export class Core
 	 * 관리할 씬을 추가한다.
 	 * @param component
 	 */
-	public AddScene = (scene: Scene): void =>
+	public AddScene(scene: Scene): void
 	{
 		this.SceneList.push(new SceneInfoModel(scene));
 	}
@@ -42,7 +42,7 @@ export class Core
 	 * 관리할 컴포넌트를 추가한다.
 	 * @param component
 	 */
-	public AddComponent = (component: Behaviour): void =>
+	public AddComponent(component: Behaviour): void
 	{
 		this.CompoList.push(new BehaviourInfoModel(component));
 	}
@@ -51,7 +51,7 @@ export class Core
 	 * 매 프레임마다 호출되는 함수
 	 * 일반적으로 60FPS이다.
 	 */
-	public Update = (): void =>
+	public Update(): void
 	{
 		this.Update_Render();
 	}
@@ -72,7 +72,7 @@ export class Core
 		
 	}
 
-	public InitializeComplete = (componentThis: Behaviour): void =>
+	public InitializeComplete(componentThis: Behaviour): void
 	{
 		//일치하는 개체가 있는지 찾는다.
 		let findCompo: BehaviourInfoModel

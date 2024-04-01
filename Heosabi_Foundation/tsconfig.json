@@ -2,8 +2,10 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "lib": [ "es6", "dom" ],
-    "sourceMap": true
+    "lib": [ "es6", "dom", "es2017" ],
+    "sourceMap": true,
+    "emitDecoratorMetadata": true, // 데코레이터 사용 설정
+    "experimentalDecorators": true // 데코레이터 사용 설정
   },
   "exclude": [
     "node_modules"

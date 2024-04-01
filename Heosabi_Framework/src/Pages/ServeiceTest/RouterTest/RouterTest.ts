@@ -28,7 +28,7 @@ export default class RouterTest extends hsbSceneComponent
 
     public render = async (): Promise<void> =>
     {
-        GlobalHFw.StartupPage.getMainDom().innerHTML = `
+        GlobalHFw.StartupPage.MainDom.innerHTML = `
         <div>
             <h1>RouterTest</h1>
             userId : ${this.userId}<br />

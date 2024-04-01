@@ -1,4 +1,5 @@
-﻿import Heosabi from "../Heosabi";
+﻿import Heosabi, { readonly } from "../Heosabi";
+
 
 /** 
  * 허사비 컴포넌트 - 라이프 사이클
@@ -47,14 +48,12 @@ export class LifeCycle
 	/**
 	 * 화면을 그리는 타이밍이 되면 발생하는 이벤트
 	 * 
-	 * 재정의를 하지 않으면 가지고 있는 데이터로 TemplateCycle에서 자동으로 처리한다.
 	 * 함수를 재정의 할때는 반듯이 끝에 'onLateRender'함수를 호출해 줘야 한다.
+	 *
+	 * 원본 'onRender'은 'onLateRender'를 호출하는 코드 뿐이 없다.
+	 * 그러니 재정의 시 'super.onRender()'을 하지 않아도 된다.
 	 * 
-	 * 재정의시 기존 랜더링 기능을 사용하려면 onRender_BaseTemplateCycle을 호출하면 된다.
-	 * (TemplateCycle > onRender_BaseTemplateCycle)
-	 * 
-	 * onRender_BaseTemplateCycle는 랜더링동작이 없으면 false가 리턴된다.
-	 * 이것을 이용하여 onLateRender를 호출할지 말지를 결정하면 된다.
+	 * 단, 일관성 유지를 위해 'onLateRender'대신 'super.onRender()'를 끝에 사용하는 방법도 있다.
 	 */
 	public async onRender(): Promise<void>
 	{
@@ -62,10 +61,8 @@ export class LifeCycle
 
 	/**
 	 * 화면 그리기가 끝나고나서 발생하는 이벤트
-	 * 재정의를 하지 않으면 가지고 있는 데이터로 TemplateCycle에서 자동으로 처리한다.
 	 * 
-	 * 재정의시 함수의 첫줄에 onLateRender_BaseTemplateCycle을 호출해야 한다.
-	 * (TemplateCycle > onLateRender_BaseTemplateCycle)
+	 * 재정의시 'super.onLateRender();'를 꼭 호출해야 한다.
 	 * 그렇지 않으면 랜더링이 무한 반복된다.
 	 */
 	public async onLateRender(): Promise<void>
@@ -84,6 +81,7 @@ export class LifeCycle
 	{
 
 	}
+
 
 	
 }

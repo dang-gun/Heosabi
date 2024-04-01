@@ -1,4 +1,4 @@
-﻿import Heosabi from "../Heosabi";
+﻿import Heosabi, { readonly } from "../Heosabi";
 
 import { LifeCycle } from "./LifeCycle";
 
@@ -17,14 +17,22 @@ export class TemplateCycle extends LifeCycle
 	public SceneParentId: string | null = null;
 	
 
+	//#region 템플릿 데이터 관련 **********************
+
 	/** 전달받은 템플릿 데이터 */
 	private SettingData: ComponentSettingModel;
+
+	/** 세팅데이터에 있는 돔타겟에 접근 */
+	protected get SettingData_domTarget() { return this.SettingData.domTarget; };
+	/** 세팅데이터에 있는 템플릿 문자열에 접근 */
+	protected get SettingData_templateString() { return this.SettingData.templateString; };
+
+	//#endregion
 
 
 	//#region 템플릿 준비 체크 관련 **********************
 
-	// *주의!* 겟터/셋터로 구혔되어있는데 this 오염문제 때문에 함수로 변경해야 할 수 있다.
-
+	
 	/** 
 	 * 템플릿이 로드되었는지 여부 - 원본
 	 */
@@ -35,7 +43,7 @@ export class TemplateCycle extends LifeCycle
 	 * 템플릿을 재설정하면 false로 변경되었다가 로드가 끝나면 다시 true로 바뀐다.
 	 */
 	public get TemplateLoadCompleteIs() { return this.TemplateLoadCompleteIs_ori }
-	private set TemplateLoadCompleteIs(bTemplateLoadComplete: boolean)
+	protected set TemplateLoadCompleteIs(bTemplateLoadComplete: boolean)
 	{
 		this.TemplateLoadCompleteIs_ori = bTemplateLoadComplete;
 		this.TemplateRenderReadyCheck();
@@ -45,7 +53,7 @@ export class TemplateCycle extends LifeCycle
 	private TargetIs_ori = false;
 	/** 그릴 대상이 있는지 여부 */
 	public get TargetIs() { return this.TargetIs_ori }
-	private set TargetIs(bTarget: boolean)
+	protected set TargetIs(bTarget: boolean)
 	{
 		this.TargetIs_ori = bTarget;
 		this.TemplateRenderReadyCheck();
@@ -58,7 +66,7 @@ export class TemplateCycle extends LifeCycle
 	 * onRender가 끝나는 시점, onLateRender가 호출되기 직전에 true로 바뀐다.
 	 */
 	public get TemplateRenderCompleteIs() { return this.TemplateRenderCompleteIs_ori };
-	private set TemplateRenderCompleteIs(bTarget: boolean)
+	protected set TemplateRenderCompleteIs(bTarget: boolean)
 	{
 		this.TemplateRenderCompleteIs_ori = bTarget;
 		this.TemplateRenderReadyCheck();
@@ -69,7 +77,7 @@ export class TemplateCycle extends LifeCycle
 	private TemplateRenderingIs_ori: boolean = false;
 	/** 템플릿이 랜더링중인지 여부 */
 	public get TemplateRenderingIs() { return this.TemplateRenderingIs_ori };
-	private set TemplateRenderingIs(bTarget: boolean)
+	protected set TemplateRenderingIs(bTarget: boolean)
 	{
 		this.TemplateRenderingIs_ori = bTarget;
 		this.TemplateRenderReadyCheck();
@@ -85,24 +93,25 @@ export class TemplateCycle extends LifeCycle
 	 * 템플릿이 준비되어 그려질 준비가 되었는지 여부
 	 */
 	public get TemplateReadyRenderIs() { return this.TemplateRenderReadyIs_ori };
+	protected set TemplateReadyRenderIs(value: boolean) { this.TemplateRenderReadyIs_ori = value };
 	/**
 	 * 템플릿이 준비되어 그려질 준비가 되었는지 여부를 체크한다.
 	 * 그려질 대상(Target DOM)과 그릴 템플릿이 준비되면 TemplateReadyRenderIs_ori가 true가 된다.
 	 * 단, 이미 템플릿이 그려졌거나(TemplateRenderCompleteIs이 true) 
 	 * 랜더링 중이 라면 false가 된다.
 	 */
-	private TemplateRenderReadyCheck() : void
+	protected TemplateRenderReadyCheck() : void
 	{
 		if (true === this.TemplateLoadCompleteIs
 			&& true === this.TargetIs
 			&& false === this.TemplateRenderCompleteIs
 			&& false === this.TemplateRenderingIs)
 		{
-			this.TemplateRenderReadyIs_ori = true;
+			this.TemplateReadyRenderIs = true;
 		}
 		else
 		{
-			this.TemplateRenderReadyIs_ori = false;
+			this.TemplateReadyRenderIs = false;
 		}
 
 		//Heosabi.instance.Srv.Logger.Info(`◇◇◇ TemplateLoadCompleteIs:${this.TemplateLoadCompleteIs}, TargetIs:${this.TargetIs}, TemplateRenderCompleteIs:${this.TemplateRenderCompleteIs}, TemplateRenderingIs:${this.TemplateRenderingIs},`)
@@ -135,7 +144,8 @@ export class TemplateCycle extends LifeCycle
 	 * 부모가 있다면 부모 기준으로 없으면 전체 기준으로 검색한다.
 	 * querySelector로 검색한다.
 	 */
-	public readonly TargetReset = (target?: HTMLElement | string): void =>
+	//@readonly
+	public TargetReset(target?: HTMLElement | string): void 
 	{
 		if (!(target))
 		{//전달 개체가 없으면 처리 없음
@@ -158,13 +168,17 @@ export class TemplateCycle extends LifeCycle
 		}
 	}
 
+
 	/**
 	 * 템플릿을 재설정 한다.
-	 * 템플릿으로 사용할 문자열의 
+	 * 템플릿으로 사용할 문자열을 판단하여 
+	 * URL이면 templateLoad를 호출하고
+	 * 문자열이면 저장 처리를 한다.
 	 * 
 	 * @param templateData 템플릿으로 사용될 'HTML String'이나 'URL String'를 넣을 수 있다.
 	 */
-	public readonly templateReset = (templateData: string): void =>
+	//@readonly
+	public templateReset(templateData: string): void
 	{
 		if (!(templateData) || ("" === templateData))
 		{//전달된 값이 잘못됐거나
@@ -192,9 +206,21 @@ export class TemplateCycle extends LifeCycle
 		}
 	}
 
-	public readonly templateLoad = (): void =>
+	/**
+	 * 저장되어있는 값에 따라 템플릿을 로드한다.
+	 * 기존 저장값이 있으면 동작하지 않는다.(templateReset으로 재설정해야함.)
+	 * 
+	 * 다운로드가 필요하다면 AjaxServeiceInterface를 통해 다운로드 된다.
+	 * 
+	 * 템플릿이 설정되거나 다운로드가 끝나면 super.onTemplateLoadComplete를 호출한다.
+	 */
+	//@readonly
+	public templateLoad(): void
 	{
 		let objThis = this;
+		let funcOnTemplateLoadComplete = super.onTemplateLoadComplete;
+
+
 		//템플릿 로드가 시작되었으니 로드 완료 체크를 초기화 시킨다.
 		objThis.TemplateLoadCompleteIs = false;
 
@@ -206,7 +232,7 @@ export class TemplateCycle extends LifeCycle
 
 			//다운로드 필요없음
 			objThis.TemplateLoadCompleteIs = true;
-			super.onTemplateLoadComplete.bind(objThis)();
+			funcOnTemplateLoadComplete();
 		}
 		else if ((objThis.SettingData.templateUrl)
 			&& ("" !== objThis.SettingData.templateUrl))
@@ -223,7 +249,7 @@ export class TemplateCycle extends LifeCycle
 
 						//템플릿 준비가 완료됨
 						objThis.TemplateLoadCompleteIs = true;
-						super.onTemplateLoadComplete.bind(objThis)();
+						funcOnTemplateLoadComplete();
 					}
 					, (error: any) =>
 					{
@@ -241,54 +267,20 @@ export class TemplateCycle extends LifeCycle
 		}
 	}
 
-	/**
-	 * TemplateCycle에서의 onRender 동작
-	 * @returns 랜더링 성공여부. 아무 동작도 하지 않았다면 false가 출력된다.
-	 */
-	protected readonly onRender_BaseTemplateCycle = (): boolean =>
+	public async onRender(): Promise<void>
 	{
-		let bReturn = false;
-
-		if (!(this.SettingData.domTarget)
-			|| (!(this.SettingData.templateString) || ("" === this.SettingData.templateString)))
-		{//돔 타겟이 없거나
-			//템플릿 내용이 없다.
-
-			//랜더링 하지 않는다.
-		}
-		else
-		{
-			this.TemplateRenderingIs = true;
-			//랜더링을 한다.
-			this.SettingData.domTarget.innerHTML
-				= this.SettingData.templateString;
-
-			bReturn = true;
-		}
-
-		return bReturn;
-	}
-	public onRender = async (): Promise<void> =>
-	{
-		if (true === this.onRender_BaseTemplateCycle())
-		{//랜더링이 성공했다.
-
-			//랜더링이 끝남을 알림
-			this.onLateRender();
-		}
-
+		
+		//랜더링이 끝남을 알림
+		this.onLateRender();
 	}
 
-	/** TemplateCycle에서의 onRender 동작 */
-	protected readonly onLateRender_BaseTemplateCycle = (): void =>
+	public async onLateRender(): Promise<void>
 	{
 		//랜더링이 끝남을 알림
 		this.TemplateRenderingIs = false;
 		this.TemplateRenderCompleteIs = true;
-	}
-	public onLateRender = async (): Promise<void> =>
-	{
-		this.onLateRender_BaseTemplateCycle();
+
+		super.onLateRender();
 	}
 	
 }

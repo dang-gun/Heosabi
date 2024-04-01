@@ -12,7 +12,7 @@ export default class NotFound extends hsbSceneComponent
 
     public render = async (): Promise<void> =>
     {
-        GlobalHFw.StartupPage.getMainDom().innerHTML = `
+        GlobalHFw.StartupPage.MainDom.innerHTML = `
           <div>
               <h1>404 - Error</h1>
               <p>페이지를 찾을 수 없습니다.</p>

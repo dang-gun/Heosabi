@@ -4,12 +4,13 @@ import { hsbComponentBehaviour, hsbSceneComponent } from '@H_Fnd/Heosabi';
 import GlobalHFnd from '@/Global/GlobalHFnd';
 import GlobalHFw from '@/Global/GlobalHFw';
 
+import HFwComponent from '@/Faculty/Component/HFwComponent';
 
 
 /** 
  * StartupScene의 UI를 담당하는 컴포넌트
  */
-export default class StartupSceneCompo extends hsbComponentBehaviour
+export default class StartupSceneCompo extends HFwComponent
 {
     //#region 외부로 노출할 이벤트들
 
@@ -61,9 +62,9 @@ export default class StartupSceneCompo extends hsbComponentBehaviour
         this.ParentScene = sceneParent;
     }
 
-    public onLateRender = async (): Promise<void> =>
+    public async onLateRender(): Promise<void>
     {
-        this.onLateRender_BaseTemplateCycle();
+        super.onLateRender();
 
 
         //메인 네비 영역 저장
@@ -78,10 +79,17 @@ export default class StartupSceneCompo extends hsbComponentBehaviour
 
     public onDestroy(): void
     {
-        //네비게이션 메뉴
-        //let navMain = GlobalHFw.AppDom.querySelector("#navMain");
-        //this.AddComponent(new NavMain({ NavMain: navMain }));
+        this.OnRenderComplete = null;
+
+        this.ParentScene = null;
+
+        this.MainNav = null;
+        this.MainDom = null;
     }
-    
+
+    //public aa()
+    //{
+
+    //}
      
 }

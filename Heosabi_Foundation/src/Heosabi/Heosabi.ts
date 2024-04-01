@@ -128,3 +128,32 @@ export default class Heosabi
 
 	// #endregion
 }
+
+/**
+ * 함수 재정의를 막기위한 데코레이션
+ *  "readonly"
+ * 안되는데 이유를 모르겠다;;;;
+ * @param target 데코레이터가 적용된 클래스
+ * @param propertyKey 데코레이터가 적용된 속성 이름
+ * @param descriptor 속성 디스크립터
+ * @returns
+ */
+//export function readonly(target: any, propertyKey: string, descriptor: PropertyDescriptor): any
+//{
+//	descriptor.writable = false;
+//	return descriptor;
+//}
+
+export function readonly<TFunction extends Function>(Target: TFunction): TFunction
+{
+	let newConstructor = function ()
+	{
+		Target.apply(this);
+		Object.freeze(this);
+	};
+
+	newConstructor.prototype = Object.create(Target.prototype);
+	newConstructor.prototype.constructor = Target;
+
+	return <any>newConstructor;
+}

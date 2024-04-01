@@ -23,6 +23,17 @@ export class Scene
 	/** 씬을 구분하기위한 고유 아이디 */
 	public idScene: string;
 
+	//#region
+
+	/** 
+	 * UI담당 컴포넌트
+	 * 씬 자체의 UI만 담당한다.
+	 * 파생된 UI는 별도 컴포넌트로 관리된다.
+	 */
+	public SceneComponent: null | Behaviour = null;
+
+	//#endregion
+
 	
 	/** 
 	 * 가지고있는 컴포넌트 리스트
@@ -38,7 +49,6 @@ export class Scene
 
 		/** 컴포넌트코어에 관리 위임 사이클에 추가 */
 		Heosabi.instance.ComponentCore.AddScene(this);
-
 	}
 
 	/**
