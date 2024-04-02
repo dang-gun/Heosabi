@@ -20,7 +20,7 @@ export default class HFwComponent extends hsbComponentBehaviour
      * 이것을 막기위해 onRender를 다시하기 전까지는 OnRenderCompleteCall가 한번만 호출되도록
      * 이 변수를 이용하여 막는다.
      * 
-     * OnRenderCompleteCall가 호출되면 true로 변경되고 onRender에서 랜더링이 시작되면 true가 된다.
+     * OnRenderCompleteCall가 호출되면 true로 변경되고 onRender에서 랜더링이 시작되면 false가 된다.
      */
     private OnRenderCompleteCallIs: boolean = false;
 
@@ -30,7 +30,7 @@ export default class HFwComponent extends hsbComponentBehaviour
      * 랜더링이 끝나고 외부에 노출할 이벤트 호출
      * onLateRender가 끝날때 호출해 줘야 한다.
      * 
-     * 상속받더라도 이 함수는 한번만 호출될 수 있도록 구서해야 예상치 못한 동작을 막을 수 있다.
+     * 상속받더라도 이 함수는 한번만 호출될 수 있도록 구성해야 예상치 못한 동작을 막을 수 있다.
      */
     protected OnRenderCompleteCall()
     {
@@ -42,7 +42,12 @@ export default class HFwComponent extends hsbComponentBehaviour
             this.OnRenderComplete();
         }
     }
+
+
+
     //#endregion
+
+
 
     /** 이 컴포넌트를 가지고 있는 부모 */
     protected ParentScene: hsbSceneComponent;

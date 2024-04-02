@@ -4,6 +4,5 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="build\" />
-    <Folder Include="src\Pages\NewFolder\" />
   </ItemGroup>
 </Project>

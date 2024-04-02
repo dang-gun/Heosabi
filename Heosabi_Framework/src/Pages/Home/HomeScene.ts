@@ -1,4 +1,4 @@
-import { hsbComponentBehaviour, hsbSceneComponent } from '@H_Fnd/Heosabi';
+import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 
 import GlobalHFw from '@/Global/GlobalHFw';
 
@@ -12,7 +12,7 @@ export default class HomeScene extends hsbSceneComponent
     {
         super();
 
-        console.log("HomeScene");
+        //console.log("HomeScene");
 
         let objThis = this;
 
@@ -58,16 +58,7 @@ class HomeSceneCompo extends HFwComponent
             });
     }
 
-    public async onLateRender (): Promise<void>
-    {
-        super.onLateRender();
-
-
-
-        //랜더링 끝남을 외부로 알림
-        super.OnRenderCompleteCall();
-    }
-
+    
     public onDestroy(): void
     {
         super.OnRenderComplete = null;

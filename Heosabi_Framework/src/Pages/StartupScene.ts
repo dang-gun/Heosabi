@@ -36,7 +36,25 @@ export default class StartupScene extends hsbSceneComponent
     {
         return this.UiCompo.MainDom;
     }
+    /**
+     * 메인 돔 영역에서 쿼리로 돔을 찾는다.
+     * @param sQuery
+     * @returns
+     */
+    public MainDomQuery(sQuery: string): HTMLElement | null
+    {
+        let domReturn: HTMLElement | null = null;
 
+        let find = this.UiCompo.MainDom.querySelector(sQuery);
+        if (find)
+        {//찾은 대상이 있다.
+            domReturn = find as HTMLElement;
+        }
+
+        return domReturn;
+    }
+
+    /** 네비 메뉴 */
     public NavMain: NavMain;
     
     constructor(props?: any)
@@ -45,7 +63,7 @@ export default class StartupScene extends hsbSceneComponent
 
         let objThis = this;
 
-        console.log("StartupScene");
+        //console.log("StartupScene");
 
         //씬용 UI 생성
         objThis.UiCompo = new StartupSceneCompo(objThis);

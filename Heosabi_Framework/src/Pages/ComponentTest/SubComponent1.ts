@@ -1,6 +1,6 @@
 import { hsbComponentBehaviour } from '@H_Fnd/Heosabi';
 
-/** Å×½ºÆ®¿ë ¼­ºê ÄÄÆ÷³ÍÆ® */
+/** í…ŒìŠ¤íŠ¸ìš© ì„œë¸Œ ì»´í¬ë„ŒíŠ¸ */
 export default class SubComponent1 extends hsbComponentBehaviour
 {
     constructor(props?: any)
@@ -10,8 +10,8 @@ export default class SubComponent1 extends hsbComponentBehaviour
         super({
             templateString: `
 <div>
-    ÄÄÆ÷³ÍÆ® 1 - Å×½ºÆ®
-    <h3>Å×½ºÆ®~</h3>
+    ì»´í¬ë„ŒíŠ¸ 1 - í…ŒìŠ¤íŠ¸
+    <h3>í…ŒìŠ¤íŠ¸~</h3>
 </div>
 `
  });

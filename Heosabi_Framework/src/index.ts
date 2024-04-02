@@ -9,10 +9,8 @@ import GlobalHFw from '@/Global/GlobalHFw';
 import StartupScene from '@/Pages/StartupScene';
 import HomeScene from '@/Pages/Home/HomeScene';
 import RouterTest from '@Pages/ServeiceTest/RouterTest/RouterTest';
+import ComponentTestScene from '@Pages/ComponentTest/ComponentTestScene';
 import NotFoundScene from '@/Pages/NotFoundScene';
-
-
-import DGU_AjaxAssist2 from '@Util/DGU_AjaxAssist2/DGU_AjaxAssist2';
 
 
 
@@ -94,6 +92,10 @@ export default class App
 						userId: match.params.get('userId'),
 						name: match.params.get('name'),
 					});
+			})
+			.on('/ComponentTest', (match) =>
+			{
+				GlobalHFw.StartupPage.SceneSet(ComponentTestScene);
 			})
 			.notFound((match) =>
 			{

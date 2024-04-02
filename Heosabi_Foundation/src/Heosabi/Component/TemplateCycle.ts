@@ -33,6 +33,23 @@ export class TemplateCycle extends LifeCycle
 	/** 세팅데이터에 있는 템플릿 문자열에 접근 */
 	protected get SettingData_templateString() { return this.SettingData.templateString; };
 
+	/**
+	 * 가지고 있는 돔을 기준으로 쿼리를 검색한다.
+	 * @param sQuery
+	 * @returns
+	 */
+	public DomQuery(sQuery: string): HTMLElement | null
+	{
+		let domReturn: HTMLElement | null = null;
+
+		let find = this.SettingData.domTarget.querySelector(sQuery);
+		if (find)
+		{//찾은 대상이 있다.
+			domReturn = find as HTMLElement;
+		}
+
+		return domReturn;
+	}
 	//#endregion
 
 
