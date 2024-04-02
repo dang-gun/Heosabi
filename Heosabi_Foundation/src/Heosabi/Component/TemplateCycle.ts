@@ -11,6 +11,12 @@ import { ComponentSettingModel } from "./DataModels/ComponentSettingModel";
 export class TemplateCycle extends LifeCycle
 {
 	/** 
+	 * 이 컴포넌트의 ID
+	 * 
+	 */
+	public idComponent: string | null = null;
+	
+	/** 
 	 * 소속 씬의 ID
 	 * 여러 단계를 걸처 컴포넌트가 생성됐다면 가장 가까운 씬이 이 컴포넌트의 부모가 된다.
 	 */
@@ -126,6 +132,20 @@ export class TemplateCycle extends LifeCycle
 	{
 		super();
 
+		//id 생성
+		this.idComponent = Heosabi.instance.CreateID();
+
+		//세팅데이터 백업하고 적용한다.
+		this.settingDataReset(settingData);
+	}
+
+	/**
+	 * settingData를 다시 설정하고 다시 적용한다.
+	 * @param settingData
+	 */
+	//@readonly
+	public settingDataReset(settingData: ComponentSettingModel): void
+	{
 		//세팅데이터 백업
 		this.SettingData = settingData;
 
@@ -274,6 +294,12 @@ export class TemplateCycle extends LifeCycle
 		this.onLateRender();
 	}
 
+	/**
+	 * @inheritDoc
+	 * --- TemplateCycle ---
+	 * 랜더링이 끝남을 여기서 알리므로 재정의 하는 경우 반듯이 'super.onLateRender()'를 호출해야 한다.
+	 * 그렇지 않으면 랜더링이 무한 반복된다.
+	 */
 	public async onLateRender(): Promise<void>
 	{
 		//랜더링이 끝남을 알림

@@ -61,9 +61,6 @@ export class LifeCycle
 
 	/**
 	 * 화면 그리기가 끝나고나서 발생하는 이벤트
-	 * 
-	 * 재정의시 'super.onLateRender();'를 꼭 호출해야 한다.
-	 * 그렇지 않으면 랜더링이 무한 반복된다.
 	 */
 	public async onLateRender(): Promise<void>
 	{
@@ -76,6 +73,8 @@ export class LifeCycle
 	 * 자바스크립트에서는 자동으로 소멸자가 호출될 수 없는 구조이다.
 	 * SPA에서는 페이지가 이동하면 소멸했다고 가정할 수 있다.
 	 * 그러므로 허사비 파운데이션에서는 페이지 이동시 이 소멸자가 호출해야한다.
+	 * 
+	 * 특히 이벤트 리스너와 연결하였다면 이곳에서 제거해야 가비지 컬랙터가 개체를 수집한다.
 	 */
 	public onDestroy(): void
 	{

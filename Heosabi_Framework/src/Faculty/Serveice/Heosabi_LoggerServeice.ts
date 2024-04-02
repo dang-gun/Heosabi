@@ -17,29 +17,47 @@ export default class Heosabi_LoggerServeice implements LoggerServeiceInterface
             //const stack = new Error().stack;
             //console.log(`Custom Log: ${message}\n${stack}`);
 
-            //console.trace(message);
-            console.log(message);
+            
+            if (false === this.ShowTrace)
+            {
+                console.log(message);    
+            }
+            else
+            {
+                console.groupCollapsed(message);
+                console.trace();
+                console.groupEnd();
+            }
         }
     }
     public Info(message: string): void
     {
         if (true === this.ShowIs)
         {
-            console.trace(message);
+            if (false === this.ShowTrace)
+            {
+                console.info(message);
+            }
+            else
+            {
+                console.groupCollapsed(console.info(message));
+                console.trace();
+                console.groupEnd();
+            }
         }
     }
     public Warning(message: string): void
     {
         if (true === this.ShowIs)
         {
-            console.trace(message);
+            console.warn(message);
         }
     }
     public Error(message: string): void
     {
         if (true === this.ShowIs)
         {
-            console.trace(message);
+            console.error(message);
         }
     }
     public Trace(message: string): void
@@ -62,6 +80,11 @@ export default class Heosabi_LoggerServeice implements LoggerServeiceInterface
 
     /** 전달된 메시지를 표시할지 여부 */
     public ShowIs: boolean = true;
+    /** 
+     * 로그를 표시할때 Trace도 같이 표시할지 여부
+     * trace를 따로 호출하지 않아도 되는 경우는 동작하지 않는다.
+     */
+    public ShowTrace: boolean = false;
 
     /** 콘솔을 모두 지운다.  */
     public clear(): void

@@ -9,7 +9,7 @@ import GlobalHFw from '@/Global/GlobalHFw';
 import StartupScene from '@/Pages/StartupScene';
 import HomeScene from '@/Pages/Home/HomeScene';
 import RouterTest from '@Pages/ServeiceTest/RouterTest/RouterTest';
-import NotFound from '@Pages/NotFound';
+import NotFoundScene from '@/Pages/NotFoundScene';
 
 
 import DGU_AjaxAssist2 from '@Util/DGU_AjaxAssist2/DGU_AjaxAssist2';
@@ -48,6 +48,7 @@ export default class App
 		GlobalHFnd.Heosabi.Srv.AddLogger(
 			new Heosabi_LoggerServeice());
 		//GlobalHFnd.Logger.Log("테스트 로거");
+		(GlobalHFnd.Heosabi.Srv.Logger as Heosabi_LoggerServeice).ShowTrace = true;
 
 
 		//아작스 지원 ***
@@ -69,39 +70,41 @@ export default class App
 		//#region 라우팅 정보 등록 ***
 		GlobalHFnd.Router.on("/", (match) =>
 		{
-			GlobalHFw.StartupPage.SceneSet(new HomeScene());
+			GlobalHFw.StartupPage.SceneSet(HomeScene);
 		})
 			.on('/home', (match) =>
 			{
-				GlobalHFw.StartupPage.SceneSet(new HomeScene());
+				GlobalHFw.StartupPage.SceneSet(HomeScene);
 			})
 			.on('/test/router', (match) =>
 			{
-				GlobalHFw.StartupPage.SceneSet(new RouterTest());
+				GlobalHFw.StartupPage.SceneSet(RouterTest);
 			})
 			.on('/test/router/:userId', (match) =>
 			{
-				GlobalHFw.StartupPage.SceneSet(new RouterTest({
-					userId: match.params.get('userId'),
-				}));
+				GlobalHFw.StartupPage.SceneSet(RouterTest,
+					{
+						userId: match.params.get('userId'),
+					});
 			})
 			.on('/test/router/:userId/:name', (match) =>
 			{
-				GlobalHFw.StartupPage.SceneSet(new RouterTest({
-					userId: match.params.get('userId'),
-					name: match.params.get('name'),
-				}));
+				GlobalHFw.StartupPage.SceneSet(RouterTest,
+					{
+						userId: match.params.get('userId'),
+						name: match.params.get('name'),
+					});
 			})
 			.notFound((match) =>
 			{
-				GlobalHFw.StartupPage.SceneSet(new NotFound());
+				GlobalHFw.StartupPage.SceneSet(NotFoundScene);
 			})
 			.resolve();
 		//#endregion
 
 
 		//주소 새로고침
-		GlobalHFnd.Router.refresh();
+		//GlobalHFnd.Router.refresh();
 	};
 }
 

@@ -1,38 +1,32 @@
-import { hsbComponentBehaviour, hsbSceneComponent } from '@H_Fnd/Heosabi';
+import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 
 import GlobalHFw from '@/Global/GlobalHFw';
 
 import HFwComponent from '@/Faculty/Component/HFwComponent';
 
-/** 홈씬  */
-export default class HomeScene extends hsbSceneComponent
+/** 페이지를 찾지 못했을 때 표시될 씬 */
+export default class NotFoundScene extends hsbSceneComponent
 {
 
     constructor()
     {
         super();
 
-        console.log("HomeScene");
+        console.log("NotFoundScene");
 
         let objThis = this;
 
         //씬용 UI 생성
-        let UiCompo: HomeSceneCompo = new HomeSceneCompo(objThis);
+        let UiCompo: NotFoundSceneCompo = new NotFoundSceneCompo(objThis);
         super.SceneUiComponent = UiCompo;
-
-        this.initialize();
     }
-
-    initialize = async () =>
-    {
-    };
-
 }
+
 
 /**
  * HomeScene의 UI를 담당하는 컴포넌트
  */
-class HomeSceneCompo extends HFwComponent
+class NotFoundSceneCompo extends HFwComponent
 {
 
     /** 이 컴포넌트를 가지고 있는 부모 */
@@ -46,10 +40,8 @@ class HomeSceneCompo extends HFwComponent
             domTarget: GlobalHFw.StartupPage.MainDom,
             templateString: `
 <div>
-    <h1>Home</h1>
-    <div>
-        홈입니다!!!
-    </div>
+    <h1>404 - Error</h1>
+    <p>페이지를 찾을 수 없습니다.</p>
 </div>
         `
         });
@@ -59,10 +51,9 @@ class HomeSceneCompo extends HFwComponent
         this.ParentScene = sceneParent;
     }
 
-    public async onLateRender (): Promise<void>
+    public async onLateRender(): Promise<void>
     {
         super.onLateRender();
-
 
 
         //랜더링 끝남을 외부로 알림

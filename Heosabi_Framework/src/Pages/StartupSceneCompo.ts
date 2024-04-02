@@ -12,21 +12,7 @@ import HFwComponent from '@/Faculty/Component/HFwComponent';
  */
 export default class StartupSceneCompo extends HFwComponent
 {
-    //#region 외부로 노출할 이벤트들
-
-    /** 랜더링이 끝나고 외부에 노출할 이벤트 */
-    public OnRenderComplete: null | (() => void) = null;
-    /** 랜더링이 끝나고 외부에 노출할 이벤트 호출 */
-    private OnRenderCompleteCall()
-    {
-        if (this.OnRenderComplete)
-        {
-            this.OnRenderComplete();
-        }
-    }
-    //#endregion
-
-
+    
     /** 이 컴포넌트를 가지고 있는 부모 */
     private ParentScene: hsbSceneComponent;
 
@@ -62,11 +48,9 @@ export default class StartupSceneCompo extends HFwComponent
         this.ParentScene = sceneParent;
     }
 
-    public async onLateRender(): Promise<void>
+    public async onLateRenderComplete(): Promise<void>
     {
-        super.onLateRender();
-
-
+        
         //메인 네비 영역 저장
         this.MainNav = GlobalHFw.AppDom.querySelector("#navMain");
         //메인 돔 영역 저장

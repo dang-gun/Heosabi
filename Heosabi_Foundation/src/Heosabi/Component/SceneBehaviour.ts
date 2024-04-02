@@ -51,6 +51,8 @@ export class SceneBehaviour extends Behaviour
     }
 
 
+
+
     public async onLateRender(): Promise<void>
     {
         super.onLateRender();

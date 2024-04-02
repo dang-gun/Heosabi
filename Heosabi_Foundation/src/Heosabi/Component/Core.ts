@@ -15,10 +15,12 @@ import { SceneInfoModel } from "./SceneInfoModel";
 export class Core
 {
 	/** 가지고있는 씬 정보 리스트 */
-	private SceneList: SceneInfoModel[] = [];
+	//private SceneList: SceneInfoModel[] = [];
+	public SceneList: SceneInfoModel[] = [];
 
 	/** 가지고있는 컴포넌트 정보 리스트 */
-	private CompoList: BehaviourInfoModel[] = [];
+	//private CompoList: BehaviourInfoModel[] = [];
+	public CompoList: BehaviourInfoModel[] = [];
 	
 	/**
 	 * 생성자
@@ -35,6 +37,8 @@ export class Core
 	public AddScene(scene: Scene): void
 	{
 		this.SceneList.push(new SceneInfoModel(scene));
+
+		Heosabi.instance.Srv.Logger.Info(`SceneList name : ${scene.idScene}, count : ${this.SceneList.length}`);
 	}
 
 
@@ -45,6 +49,8 @@ export class Core
 	public AddComponent(component: Behaviour): void
 	{
 		this.CompoList.push(new BehaviourInfoModel(component));
+
+		Heosabi.instance.Srv.Logger.Info(`CompoList name : ${component.SceneParentId} , count : ${this.CompoList.length}`);
 	}
 
 	/** 
@@ -110,5 +116,60 @@ export class Core
 				callbackError(error);
 			});
 	}
-	
+
+	/**
+	 * 지정된 아이디의 씬과 소속된 컴포넌트를 파괴한다.
+	 * @param idScene
+	 */
+	public DestroySceneCompo(idScene: string): void
+	{
+		this.DestroyScene(idScene);
+		this.DestroyCompo(idScene);
+	}
+
+	/**
+	 * 지정된 아이디의 씬을 파괴한다.
+	 * @param idScene
+	 */
+	public DestroyScene(idScene: string): void
+	{
+		//일치하는 개체가 있는지 찾는다.
+		let findScene: SceneInfoModel
+			= this.SceneList
+				.find(f => f.SceneMy.idScene === idScene);
+
+		if (findScene)
+		{//있다.
+
+			//파괴 이벤트 호출
+			findScene.SceneMy.onDestroy();
+
+			//리스트에서 제거
+			this.SceneList.splice(this.SceneList.indexOf(findScene), 1);
+		}
+	}
+
+	/**
+	 * 지정된 씬 아이디를 가지고 있는 부모를 가진 컴포넌트를 찾아 파괴한다.
+	 * @param idScene
+	 */
+	public DestroyCompo(idScene: string): void
+	{
+		let findCompo: BehaviourInfoModel[]
+			= this.CompoList
+				.filter(f => f.MyBehaviour.SceneParentId === idScene);
+
+		if ((findCompo) && 0 < findCompo.length)
+		{//검색 결과가 있다.
+
+			for (let i = 0; i < findCompo.length; ++i)
+			{
+				let item: BehaviourInfoModel = findCompo[i];
+				//파괴 이벤트 호출
+				item.MyBehaviour.onDestroy();
+				//리스트에서 제거
+				this.CompoList.splice(this.CompoList.indexOf(item), 1);
+			}
+		}
+	}
 }

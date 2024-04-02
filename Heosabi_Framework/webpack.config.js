@@ -120,7 +120,10 @@ module.exports = (env, argv) =>
             /** 핫리로드 사용여부 */
             hot: true,
             /** 라이브 리로드 사용여부 */
-            liveReload: true
+            liveReload: true,
+            headers: {
+                'Content-Security-Policy': "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'",
+            },
         },
     };
 }

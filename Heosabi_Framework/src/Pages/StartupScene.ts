@@ -1,4 +1,4 @@
-import { hsbComponentBehaviour, hsbSceneComponent } from '@H_Fnd/Heosabi';
+import Heosabi, { hsbComponentBehaviour, hsbSceneComponent } from '@H_Fnd/Heosabi';
 
 
 import GlobalHFnd from '@/Global/GlobalHFnd';
@@ -45,6 +45,8 @@ export default class StartupScene extends hsbSceneComponent
 
         let objThis = this;
 
+        console.log("StartupScene");
+
         //씬용 UI 생성
         objThis.UiCompo = new StartupSceneCompo(objThis);
         //씬용 UI가 완료되었을때 이벤트
@@ -53,13 +55,14 @@ export default class StartupScene extends hsbSceneComponent
             //네비게이션 생성
             objThis.NavMain = new NavMain(this.MainNav);
 
-            GlobalHFw.StartupPage.MainDom
+
+            console.log("□□□ StartupScene UI 완료 -> 대기중인 씬처리");
             //대기중인 씬 처리
-            this.SceneSetCheck();
-            console.log("□□□ StartupScene UI 완료");
+            this.SceneSetTempCheck();
+            
         };
 
-        super.SceneComponent = objThis.UiCompo;
+        super.SceneUiComponent = objThis.UiCompo;
     }
 
     /** 동기/비동기를 제어하기 위한 비동기 초기화 함수 */
@@ -74,40 +77,110 @@ export default class StartupScene extends hsbSceneComponent
     /** 씬 설정시 임시저장용 */
     private SceneSetTemp: null | hsbSceneComponent = null;
 
-    /**
-     * 지정한 개체를 지금 씬으로 지정한다.
-     * 여기서 지정한 씬은 <main>영역을 사용한다.
-     * @param scene
-     */
-    public SceneSet = (scene: hsbSceneComponent): void =>
-    {
-        if (null === this.MainDom)
-        {//메인돔이 생성전이다.
 
-            //설정하려는 씬을 대기시킨다.
-            this.SceneSetTemp = scene;
+    /**
+     * 지정한 씬(제네릭으로 전달)을 지금 씬으로 지정한다.
+     * 여기서 지정한 씬은 <main>영역을 사용한다.
+     * 
+     * 기존씬은 파괴자를 호출한다.
+     * 
+     * 만약 기존의 씬(GlobalHFw.SceneNow)과 같다면 새로 생성하지 않는다.
+     * @param scene 변경할 씬의 제네릭(hsbSceneComponent)
+     * @param props 씬을 새로 생성할때 사용할 프로퍼티
+     */
+    public SceneSet<T extends hsbSceneComponent>(
+        scene: new (props?: any) => T
+        , props?: any)
+        : void
+    {
+
+        let bNewScene: boolean = false;
+
+
+        if (GlobalHFw.SceneNow)
+        {//기존 씬이 있다.
+
+
+            if (scene.name === GlobalHFw.SceneNow.constructor.name)
+            {//기존 씬과 같다.
+
+                //새로운 세팅
+                GlobalHFw.SceneNow.propsReset(props);
+            }
+            else
+            {//기존 씬과 다르다.
+
+                //새 씬이 필요함을 알림
+                bNewScene = true;
+            }
         }
         else
-        {//메인돔이 있다.
+        {
+            //새 씬이 필요함을 알림
+            bNewScene = true;
+        }
 
-            //바로 출력
-            GlobalHFw.SceneNow = scene;
+        if (true === bNewScene)
+        {
+            if (null === this.MainDom)
+            {//메인돔이 생성전이다.
+
+                //설정하려는 씬을 대기시킨다.
+                this.SceneSetTemp = new scene(props);
+            }
+            else
+            {//메인돔이 있다.
+
+                //바로 출력
+                this.SceneSetChange(new scene(props));
+            }
         }
     }
 
-    private SceneSetCheck()
+    /**
+     * 대기중인 씬이 있는지 확인하고 있으면 대기중인 씬을 진행 시킨다.
+     */
+    private SceneSetTempCheck()
     {
+        //console.log("SceneSetCheck : ");
+        //console.log(this.SceneSetTemp);
+        //console.log(GlobalHFw.StartupPage.MainDom);
+
         if (null != this.SceneSetTemp)
         {//대기중인 씬이 있다.
 
             //씬을 설정하고
-            GlobalHFw.SceneNow = this.SceneSetTemp;
+            this.SceneSetChange(this.SceneSetTemp);
             //대기중인 씬을 제거하고
             this.SceneSetTemp = null;
 
             //돔이 완성됐으니 타겟 설정을 다시 해준다.
-            GlobalHFw.SceneNow.SceneComponent.TargetReset(GlobalHFw.StartupPage.MainDom);
+            GlobalHFw.SceneNow.SceneUiComponent.TargetReset(GlobalHFw.StartupPage.MainDom);
         }
+    }
+
+    /**
+     * GlobalHFw.SceneNow을 변경할때는 무조건 이 함수로 변경해야 한다.
+     * 기존 씬의 파괴자 호출을 하고 GlobalHFw.SceneNow에 새씬을 할당한다.
+     */
+    private SceneSetChange(newScene: hsbSceneComponent): void
+    {
+        if (GlobalHFw.SceneNow)
+        {
+            console.log("SceneSetChange : ");
+
+            //기존씬 파괴자 호출을 위해 코어에 알림
+            //해시라우터는 링크에 의한 이동이 가능하므로 새씬을 할당하기전에 파괴자를 호출해야 한다.
+            //브라우저 라우터는 navigate으로만 이동이 가능하므로 이 문제에서 자유롭다.
+            //
+            //대신 둘다 navigate에는 파괴자를 호출해야 하므로 해시라우터는 파괴자를 두번 호출하게 된다.
+            Heosabi.instance.ComponentCore
+                .DestroySceneCompo(GlobalHFw.SceneNow.idScene);
+        }
+        
+
+        //새씬 할당
+        GlobalHFw.SceneNow = newScene;
     }
 
     //#endregion

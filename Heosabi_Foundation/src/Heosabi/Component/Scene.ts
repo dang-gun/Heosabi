@@ -30,7 +30,7 @@ export class Scene
 	 * 씬 자체의 UI만 담당한다.
 	 * 파생된 UI는 별도 컴포넌트로 관리된다.
 	 */
-	public SceneComponent: null | Behaviour = null;
+	public SceneUiComponent: null | Behaviour = null;
 
 	//#endregion
 
@@ -41,26 +41,56 @@ export class Scene
 	 * 자체적으로 관리하지 않는다.
 	 */
 	private CompList: Behaviour[] = [];
-	
-	constructor()
+
+	/**
+	 * 씬 초기화
+	 * 
+	 * 씬에서 사용하는 UI도 허사비 컴포넌트이다.
+	 * 허사비 컴포넌트를 생성하여 직접 SceneUiComponent에 저장하여 사용하도록 한다.
+	 * @param props
+	 */
+	constructor(props?: any)
 	{
 		//id 생성
 		this.idScene = Heosabi.instance.CreateID();
 
-		/** 컴포넌트코어에 관리 위임 사이클에 추가 */
+		//컴포넌트코어에 관리 위임 사이클에 추가
 		Heosabi.instance.ComponentCore.AddScene(this);
+
+		//프로퍼티 전달
+		this.propsReset(props);
+	}
+
+	/**
+	 * 프로퍼티(properties)를 다시 설정한다.
+	 * 
+	 * 재정의 전용 함수로 씬이 프로퍼티를 전달받아야하는 경우에 사용된다.
+	 * @param props
+	 */
+	public propsReset(props?: any)
+	{
+	}
+
+	/**
+	 * UI가 사용하는 DOM을 다시 설정한다.
+	 * @param target
+	 */
+	public UiTargetReset(target: HTMLElement)
+	{
+		this.SceneUiComponent.TargetReset(target);
 	}
 
 	/**
 	 * 관리할 컴포넌트를 추가한다.
 	 * @param component
 	 */
-	public AddComponent = (component: Behaviour): void =>
+	public AddComponent(component: Behaviour): void
 	{
+		component.SceneParentId = this.idScene
 		this.CompList.push(component);
 	}
 
-	public destroy = (): void =>
+	public onDestroy(): void
 	{
 		this.CompList = null;
 	}

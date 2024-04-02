@@ -2,6 +2,7 @@
     RouterServeiceInterface,
     RouterMatchInfoModel,
     RouterMatchInfoHandler,
+    hsbComponentCore,
 } from '@H_Fnd/Heosabi';
 
 /**
@@ -11,6 +12,10 @@
 import JxtaHashRouter, {
 } from '@//Utility/JxtaHashRouter/JxtaHashRouter';
 import { Handler, Match } from '@//Utility/JxtaHashRouter/types';
+
+
+import GlobalHFnd from '@/Global/GlobalHFnd';
+import GlobalHFw from '@/Global/GlobalHFw';
 
 
 /** 
@@ -77,7 +82,17 @@ export default class Heosabi_JxtaHashRouterServeice
      */
     public navigate(to: string)
     {
+        console.log(`navigate start : ${Heosabi.instance.ComponentCore.SceneList.length}, ${Heosabi.instance.ComponentCore.CompoList.length} `);
+        
+
+        //기존 씬 파괴
+        Heosabi.instance
+            .ComponentCore
+            .DestroySceneCompo(GlobalHFw.SceneNow.idScene);
+
         this.router.navigate(to);
+
+        console.log(`navigate end : ${Heosabi.instance.ComponentCore.SceneList.length}, ${Heosabi.instance.ComponentCore.CompoList.length} `);
     }
     
 
