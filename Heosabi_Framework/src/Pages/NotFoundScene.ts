@@ -29,14 +29,16 @@ export default class NotFoundScene extends hsbSceneComponent
 class NotFoundSceneCompo extends HFwComponent
 {
 
-    /** 이 컴포넌트를 가지고 있는 부모 */
-    private ParentScene: hsbSceneComponent;
-
+    /**
+     * 
+     * @param sceneParent 부모가될 씬
+     */
     constructor(sceneParent: hsbSceneComponent)
     {
         //console.log("□□□□□□□");
         //console.log(GlobalHFw.StartupPage.getMainDom());
-        super({
+        super(sceneParent
+            , {
             domTarget: GlobalHFw.StartupPage.MainDom,
             templateString: `
 <div>

@@ -88,7 +88,7 @@ export default class Heosabi_JxtaHashRouterServeice
         //기존 씬 파괴
         Heosabi.instance
             .ComponentCore
-            .DestroySceneCompo(GlobalHFw.SceneNow.idScene);
+            .DestroySceneAndCompo(GlobalHFw.SceneNow.idScene);
 
         this.router.navigate(to);
 

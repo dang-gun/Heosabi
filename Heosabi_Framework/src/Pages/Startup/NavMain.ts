@@ -1,4 +1,5 @@
 
+import { hsbSceneComponent } from '@H_Fnd/Heosabi';
 
 import GlobalHFnd from '@/Global/GlobalHFnd';
 import GlobalHFw from '@/Global/GlobalHFw';
@@ -13,12 +14,20 @@ import HFwComponent from '@/Faculty/Component/HFwComponent';
 export default class NavMain extends HFwComponent
 {
 
-    constructor(domNavMain: HTMLElement)
+    /**
+     * 
+     * @param sceneParent 부모가될 씬
+     */
+    constructor(
+        sceneParent: hsbSceneComponent
+        , domNavMain: HTMLElement)
     {
-        super({
-            domTarget: domNavMain,
-            templateUrl: "/Pages/Startup/NavMain.html"
-        });
+        super(
+            sceneParent
+            , {
+                domTarget: domNavMain,
+                templateUrl: "/Pages/Startup/NavMain.html"
+            });
         
     }
 

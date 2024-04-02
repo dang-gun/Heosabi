@@ -35,16 +35,19 @@ export default class HomeScene extends hsbSceneComponent
 class HomeSceneCompo extends HFwComponent
 {
 
-    /** 이 컴포넌트를 가지고 있는 부모 */
-    private ParentScene: hsbSceneComponent;
-
+    /**
+     * 
+     * @param sceneParent 부모가될 씬
+     */
     constructor(sceneParent: hsbSceneComponent)
     {
         //console.log("□□□□□□□");
         //console.log(GlobalHFw.StartupPage.getMainDom());
-        super({
-            domTarget: GlobalHFw.StartupPage.MainDom,
-            templateString: `
+        super(
+            sceneParent
+            , {
+                domTarget: GlobalHFw.StartupPage.MainDom,
+                templateString: `
 <div>
     <h1>Home</h1>
     <div>
@@ -52,11 +55,7 @@ class HomeSceneCompo extends HFwComponent
     </div>
 </div>
         `
-        });
-
-
-        //부모 개체 저장
-        this.ParentScene = sceneParent;
+            });
     }
 
     public async onLateRender (): Promise<void>

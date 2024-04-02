@@ -13,22 +13,24 @@ import HFwComponent from '@/Faculty/Component/HFwComponent';
 export default class StartupSceneCompo extends HFwComponent
 {
     
-    /** 이 컴포넌트를 가지고 있는 부모 */
-    private ParentScene: hsbSceneComponent;
-
-
-
     /** 'navMain'으로 지정된 영역*/
     public MainNav: HTMLElement | null = null;
 
     /** 'domMain'으로 지정된 영역*/
     public MainDom: HTMLElement | null = null;
 
+
+    /**
+     * 
+     * @param sceneParent 부모가될 씬
+     */
     constructor(sceneParent: hsbSceneComponent)
     {
-        super({
-            domTarget: GlobalHFw.AppDom,
-            templateString: `
+        super(
+            sceneParent
+            , {
+                domTarget: GlobalHFw.AppDom,
+                templateString: `
 <div>
     <header></header>
 
@@ -42,10 +44,7 @@ export default class StartupSceneCompo extends HFwComponent
     <footer></footer>
 </div>
             `,
-        });
-
-        //부모 개체 저장
-        this.ParentScene = sceneParent;
+            });
     }
 
     public async onLateRenderComplete(): Promise<void>

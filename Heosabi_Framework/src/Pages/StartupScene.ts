@@ -53,7 +53,7 @@ export default class StartupScene extends hsbSceneComponent
         objThis.UiCompo.OnRenderComplete = () =>
         {
             //네비게이션 생성
-            objThis.NavMain = new NavMain(this.MainNav);
+            objThis.NavMain = new NavMain(this, this.MainNav);
 
 
             console.log("□□□ StartupScene UI 완료 -> 대기중인 씬처리");
@@ -175,7 +175,7 @@ export default class StartupScene extends hsbSceneComponent
             //
             //대신 둘다 navigate에는 파괴자를 호출해야 하므로 해시라우터는 파괴자를 두번 호출하게 된다.
             Heosabi.instance.ComponentCore
-                .DestroySceneCompo(GlobalHFw.SceneNow.idScene);
+                .DestroySceneAndCompo(GlobalHFw.SceneNow.idScene);
         }
         
 

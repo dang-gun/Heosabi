@@ -1,4 +1,4 @@
-import { hsbComponentBehaviour, hsbComponentSettingModel } from '@H_Fnd/Heosabi';
+import { hsbComponentBehaviour, hsbSceneComponent, hsbComponentSettingModel } from '@H_Fnd/Heosabi';
 
 
 import GlobalHFnd from '@/Global/GlobalHFnd';
@@ -7,6 +7,8 @@ import GlobalHFw from '@/Global/GlobalHFw';
 /** 
  * 허사비 프레임워크에서 사용할 허사비컴포넌트 동작
  * 허사비 파운데이션은 구현이 없으므로 구현은 여기에서 한다.
+ * 
+ * 허사비 프레임워크의 컴포넌트는 씬에 무조건 소속되어야 한다.
  */
 export default class HFwComponent extends hsbComponentBehaviour
 {
@@ -42,9 +44,24 @@ export default class HFwComponent extends hsbComponentBehaviour
     }
     //#endregion
 
-    constructor(settingData: hsbComponentSettingModel)
+    /** 이 컴포넌트를 가지고 있는 부모 */
+    protected ParentScene: hsbSceneComponent;
+
+    /**
+     * 
+     * @param sceneParent 부모로 사용할 씬
+     * @param settingData 이 컴포넌트 세팅 데이터
+     */
+    constructor(
+        sceneParent: hsbSceneComponent
+        , settingData: hsbComponentSettingModel)
     {
         super(settingData);
+
+        //부모 개체 저장
+        this.ParentScene = sceneParent;
+        //내 소속을 부모로 고정
+        this.ParentScene.AddComponent(this);
     }
 
 	public async onRender(): Promise<void>

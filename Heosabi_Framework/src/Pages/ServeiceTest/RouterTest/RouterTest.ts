@@ -56,10 +56,7 @@ export default class RouterTest extends hsbSceneComponent
  */
 class RouterTestCompo extends HFwComponent
 {
-    /** 이 컴포넌트를 가지고 있는 부모 */
-    private ParentScene: hsbSceneComponent;
-
-
+    
     /** 유저id */
     public get UserId(): string
     {
@@ -80,12 +77,18 @@ class RouterTestCompo extends HFwComponent
         (document.getElementById("labName") as HTMLLabelElement).innerText = value;
     }
 
+    /**
+     * 
+     * @param sceneParent 부모가될 씬
+     */
     constructor(sceneParent: hsbSceneComponent)
     {
-        super({
-            domTarget: GlobalHFw.StartupPage.MainDom,
-            templateUrl: "/Pages/ServeiceTest/RouterTest/RouterTest.html"
-        });
+        super(
+            sceneParent
+            , {
+                domTarget: GlobalHFw.StartupPage.MainDom,
+                templateUrl: "/Pages/ServeiceTest/RouterTest/RouterTest.html"
+            });
 
 
         //부모 개체 저장
