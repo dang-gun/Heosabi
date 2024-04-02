@@ -50,7 +50,7 @@ export class Core
 	{
 		this.CompoList.push(new BehaviourInfoModel(component));
 
-		Heosabi.instance.Srv.Logger.Info(`CompoList name : ${component.SceneParentId} , count : ${this.CompoList.length}`);
+		Heosabi.instance.Srv.Logger.Info(`CompoList name : ${component.idComponent} , count : ${this.CompoList.length}`);
 	}
 
 	/** 
@@ -121,10 +121,10 @@ export class Core
 	 * 지정된 아이디의 씬과 소속된 컴포넌트를 파괴한다.
 	 * @param idScene
 	 */
-	public DestroySceneCompo(idScene: string): void
+	public DestroySceneAndCompo(idScene: string): void
 	{
 		this.DestroyScene(idScene);
-		this.DestroyCompo(idScene);
+		this.DestroySceneCompo(idScene);
 	}
 
 	/**
@@ -153,11 +153,35 @@ export class Core
 	 * 지정된 씬 아이디를 가지고 있는 부모를 가진 컴포넌트를 찾아 파괴한다.
 	 * @param idScene
 	 */
-	public DestroyCompo(idScene: string): void
+	public DestroySceneCompo(idScene: string): void
 	{
 		let findCompo: BehaviourInfoModel[]
 			= this.CompoList
 				.filter(f => f.MyBehaviour.SceneParentId === idScene);
+
+		if ((findCompo) && 0 < findCompo.length)
+		{//검색 결과가 있다.
+
+			for (let i = 0; i < findCompo.length; ++i)
+			{
+				let item: BehaviourInfoModel = findCompo[i];
+				//파괴 이벤트 호출
+				item.MyBehaviour.onDestroy();
+				//리스트에서 제거
+				this.CompoList.splice(this.CompoList.indexOf(item), 1);
+			}
+		}
+	}
+
+	/**
+	 * 컴포넌트 아이디로 컴포넌트를 찾아 파괴자를 호출하고 제거한다.
+	 * @param idCompo
+	 */
+	public DestroyCompo(idCompo: string): void
+	{
+		let findCompo: BehaviourInfoModel[]
+			= this.CompoList
+				.filter(f => f.MyBehaviour.idComponent === idCompo);
 
 		if ((findCompo) && 0 < findCompo.length)
 		{//검색 결과가 있다.

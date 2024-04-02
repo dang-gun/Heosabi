@@ -1,6 +1,5 @@
 ﻿import Heosabi from "../Heosabi";
 
-import { LifeCycle } from "./LifeCycle";
 import { TemplateCycle } from "./TemplateCycle";
 
 import { ComponentSettingModel } from "./DataModels/ComponentSettingModel";
@@ -8,7 +7,12 @@ import { ComponentSettingModel } from "./DataModels/ComponentSettingModel";
 
 
 
-/** 컴포넌트 동작 */
+/** 
+ * 컴포넌트 동작
+ * 컴포넌트는 꼭 씬에 소속될 필요가 없으므로 씬과 관련된 자동화는 여기서 넣지 않는다.
+ *
+ * 컴포넌트를 씬에 소속시키려면 이 클래스를 상속받아서 구현시키면 된다.
+ */
 export class Behaviour extends TemplateCycle
 {
     
